@@ -15,12 +15,38 @@ const typeDefs = gql`
         Poster_Link: String
         Released_Year: String
         Runtime: String
-        Series_Title: String
+        Series_Title: String!
         Star1: String
         Star2: String
         Star3: String
         Star4: String
     }
+
+    type User {
+        name: String!
+        queries: [SearchQuery!]
+    }
+
+    type SearchQuery {
+        user: User!
+        #Certificate: String
+        #Director: String
+        #Genre: String
+        #Gross: String
+        #IMDB_Rating: String
+        #Meta_score: String
+        #No_of_Votes: String
+        #Overview: String
+        #Poster_Link: String
+        #Released_Year: String
+        #Runtime: String
+        Series_Title: String!
+        #Star1: String
+        #Star2: String
+        #Star3: String
+        #Star4: String
+    }
+
 `;
 
 const driver = neo4j.driver(
