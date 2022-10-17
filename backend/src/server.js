@@ -1,7 +1,10 @@
 const { Neo4jGraphQL } = require("@neo4j/graphql");
 const { ApolloServer, gql } = require("apollo-server");
 const neo4j = require("neo4j-driver");
+require("dotenv").config();
 
+//Sourcecode gotten from ""
+//Types for use in schema generation for Neo4J database, is fetched by neoSchema further down
 const typeDefs = gql`
     type Movie {
         Certificate: String
@@ -49,13 +52,16 @@ const typeDefs = gql`
 
 `;
 
+//Driver for fetching data from Neo4j database, with generic user with read priviliges
 const driver = neo4j.driver(
-    "bolt://localhost:7687",
-    neo4j.auth.basic("serverUser", "Password123")
-);
+    process.env.NEO4J_URI,
+    neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD)
+  );
 
+//Generates schema for Neo4J
 const neoSchema = new Neo4jGraphQL({ typeDefs, driver });
 
+//Starts server
 neoSchema.getSchema().then((schema) => {
     const server = new ApolloServer({
         schema, 
