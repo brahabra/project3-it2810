@@ -8,4 +8,27 @@
 ehthumbs.db
 Thumbs.db
 backend/node_modules
-frontend/node_modules
+frontend/movieSearchApp/node_modules
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+frontend/movieSearchApp/.pnp
+frontend/movieSearchApp/.pnp.js
+
+# testing
+frontend/movieSearchApp/coverage
+
+# production
+frontend/movieSearchApp/build
+
+# misc
+frontend/movieSearchApp/.DS_Store
+frontend/movieSearchApp/.env.local
+frontend/movieSearchApp/.env.development.local
+frontend/movieSearchApp/.env.test.local
+frontend/movieSearchApp/.env.production.local
+
+frontend/movieSearchApp/npm-debug.log*
+frontend/movieSearchApp/yarn-debug.log*
+frontend/movieSearchApp/yarn-error.log*
