@@ -1,23 +1,13 @@
-import { gql, useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { useState } from "react";
+import { GET_MOVIES } from "../queries/getMovies";
 import SearchBar from "./SearchBar";
 
 function MovieSearch() {
-  //const [search, setSearch] = useState<string>("");
   const [title, setTitle] = useState<string>("");
 
-  const GET_MOVIES = gql`
-    query getMoviesByTitle($title: String!) {
-      movies(where: { Series_Title_CONTAINS: $title }) {
-        Poster_Link
-        Series_Title
-        IMDB_Rating
-      }
-    }
-  `;
-
   function DisplayMovies2() {
-    const { loading, error, data } = useQuery(GET_MOVIES, {
+    const { loading, error, data } = useQuery(GET_MOVIES(title), {
       variables: { title },
     });
 
