@@ -8,7 +8,7 @@ function MovieSearch() {
 
   function DisplayMovies2() {
     const { loading, error, data } = useQuery(GET_MOVIES(title), {
-      variables: { title },
+      variables: { title, offset: 0, limit: 10 },
     });
 
     if (loading) return <p>Loading...</p>;
