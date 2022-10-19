@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
+import "../style/SearchBar.css";
 
 interface Props {
   title: string;
@@ -13,19 +14,19 @@ export default function SearchBar(props: Props) {
     setSearch(event.target.value);
   };
 
-  const onSubmit = () => {
+  const onSubmit = () => { 
     props.setTitle(search);
   };
 
   return (
-    <div>
-      <TextField
-        label="Movie Title"
+    <div className="searchBar">
+      <TextField  className="searchInput"
+        label="Enter the title of your movie ..."
         type="text"
         onChange={onChangeSearch}
         value={search}
       />
-      <Button onClick={onSubmit}>Submit</Button>
+      <Button className="searchButton" variant="outlined" onClick={onSubmit}>Submit</Button>
     </div>
   );
 }

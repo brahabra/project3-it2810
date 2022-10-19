@@ -1,3 +1,4 @@
+import { off } from "process";
 import { useState } from "react";
 import { IMovie, IMovies } from "../interfaces/IMovie";
 import "../style/movieTable.css";
@@ -7,7 +8,7 @@ import "../style/movieTable.css";
  *
  * @param {IMovie} {  Series_Title, Released_Year, IMDB_Rating }
  */
-const MovieRowComp = ({ Series_Title, Released_Year, IMDB_Rating }: IMovie) => (
+export const MovieRowComp = ({ Series_Title, Released_Year, IMDB_Rating }: IMovie) => (
   <div className="movieRow">
     <div className="movieRowSection">
       <p>{Series_Title}</p>
@@ -21,41 +22,64 @@ const MovieRowComp = ({ Series_Title, Released_Year, IMDB_Rating }: IMovie) => (
   </div>
 );
 
-export /**
+ /**
  * @description Table component for displaying movies. Creates a list of movieRowComps and displays them as a table.
  *
  * @param {IMovies} moviesProp
  */
-const MovieTableComp = (moviesProp: IMovies): JSX.Element => {
-  const [pagenum, setPagenum] = useState(0);
+  
+  interface Props {
+    movieList: IMovie[];
+    offset: number;
+    limit: number;
+    isLastPage: boolean;
+    setOffset: (value: number) => void;
+    setLimit: (value: number) => void;
+    setIsLastPage: (value: boolean) => void;
+  }
 
+  export const MovieTableComp = (props: Props): JSX.Element => {
+  //const [pagenum, setPagenum] = useState(0);
+
+  // If right button is clicked, go to the next page
   const buttonRightHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //run switch page right function
-    alert("going right");
+    if(props.isLastPage){
+      alert("Already on last page!");
+    }
+    else {
+      props.setOffset(props.offset + 10);
+    }
   };
+
+  // If left button is clicked, go to the prev page
   const buttonLeftHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //run switch page left function
-    alert("going left");
+    if(props.offset - 10 >= 0){
+      props.setOffset(props.offset - 10);
+    }
+    else {
+      alert("Already on the first page!")
+    }
   };
-  // might use later:
-  // const inputPagenumHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const enteredNumber: number = event.target.valueAsNumber;
-  //   if (!isNaN(enteredNumber)) {
-  //     setPagenum(enteredNumber);
-  //     alert("going to page " + enteredNumber);
-  //   }
-  //   //set pagunation number
-  // };
+
+  //might use later:
+  /*const inputPagenumHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const enteredNumber: number = event.target.valueAsNumber;
+    if (!isNaN(enteredNumber)) {
+      setPagenum(enteredNumber);
+      alert("going to page " + enteredNumber);
+    }
+    //set pagunation number
+  };*/
 
   return (
     <div className="movieTableContainer">
       {/* Table filtering */}
-      <div className="FilterBar">
+      {/* <div className="FilterBar">
         <label>Genre</label>
         <input type="text" />
         <label>Actor</label>
         <input type="text" />
-      </div>
+      </div> */}
       {/* The table */}
       <div className="movieTable">
         <div className="movieTableDiscription">
@@ -63,7 +87,7 @@ const MovieTableComp = (moviesProp: IMovies): JSX.Element => {
           <p>Movie Year</p>
           <p>IMDB Rating</p>
         </div>
-        {moviesProp.movieList.map((movie: IMovie) => {
+        {props.movieList.map((movie: IMovie) => {
           return (
             <MovieRowComp
               Series_Title={movie.Series_Title}
@@ -75,7 +99,7 @@ const MovieTableComp = (moviesProp: IMovies): JSX.Element => {
       </div>
       {/* Page navigation */}
       <div className="pageNavigation">
-        <button onClick={buttonLeftHandler}>&larr; prev page</button>
+        <button onClick={buttonLeftHandler}>&larr; Prev page</button>
         {/* might use later: */}
         {/* <input
           className="pageField"
@@ -83,7 +107,7 @@ const MovieTableComp = (moviesProp: IMovies): JSX.Element => {
           onChange={inputPagenumHandler}
           value={pagenum}
         ></input> */}
-        <button onClick={buttonRightHandler}>&rarr; next page</button>
+        <button onClick={buttonRightHandler}>Next page &rarr;</button>
       </div>
     </div>
   );
