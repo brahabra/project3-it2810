@@ -4,8 +4,6 @@ import "./index.css";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import store from "./redux/store";
-import { Provider } from "react-redux";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/",
@@ -17,11 +15,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
       <ApolloProvider client={client}>
         <App />
       </ApolloProvider>
-    </Provider>
   </React.StrictMode>
 );
 
