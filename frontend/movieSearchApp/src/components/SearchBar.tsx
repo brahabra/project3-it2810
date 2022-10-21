@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import "../style/SearchBar.css";
 
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function SearchBar(props: Props) {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(props.title);
 
   const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -20,14 +20,14 @@ export default function SearchBar(props: Props) {
 
   return (
     <div className="searchBar">
-      <TextField  className="searchInput"
+      <TextField className="searchInput"
         placeholder="Enter the title of your movie ..."
         label="Title of movie"
         type="text"
         onChange={onChangeSearch}
         value={search}
       />
-      <Button className="searchButton" variant="outlined" onClick={onSubmit}>Submit</Button>
+      <Button className="searchButton" variant="contained" onClick={onSubmit}>Search</Button>
     </div>
   );
 }

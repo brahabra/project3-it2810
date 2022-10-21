@@ -2,7 +2,7 @@ import { TextField, Button } from "@mui/material";
 import { off } from "process";
 import { useState } from "react";
 import { IMovie, IMovies } from "../interfaces/IMovie";
-import "../style/movieTable.css";
+import "../style/MovieTable.css";
 
 /**
  * @description The row elements of the movie table. Displays the name, release year and IMDB rating.
@@ -36,30 +36,29 @@ export const MovieRowComp = ({
 interface Props {
   movieList: IMovie[];
   offset: number;
-  limit: number;
+  currentPage: number;
   setOffset: (value: number) => void;
-  setLimit: (value: number) => void;
+  setCurrentPage: (value: number) => void;
 }
 
 export const MovieTableComp = (props: Props): JSX.Element => {
   //const [pagenum, setPagenum] = useState(0);
-  //let currentPage = 0;
-
   // If right button is clicked, go to the next page
   const nextPageHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (props.movieList.length < 10) {
       alert("Already on last page!");
     } else {
       props.setOffset(props.offset + 10);
+      props.setCurrentPage(props.currentPage + 1);
     }
-    //currentPage++;
   };
 
   // If left button is clicked, go to the prev page
+  // TODO: the if checks here can be removed because the button is disabled if the button should not be clicked
   const prevPageHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (props.offset - 10 >= 0) {
       props.setOffset(props.offset - 10);
-      // currentPage--;
+      props.setCurrentPage(props.currentPage - 1);
     } else {
       alert("Already on the first page!");
     }
@@ -91,7 +90,9 @@ export const MovieTableComp = (props: Props): JSX.Element => {
           <p>Release year</p>
           <p>IMDB Rating</p>
         </div>
-        {props.movieList.map((movie: IMovie) => {
+        
+        {props.movieList.length > 0 ?
+        props.movieList.map((movie: IMovie) => {
           return (
             <MovieRowComp
               Series_Title={movie.Series_Title}
@@ -99,11 +100,16 @@ export const MovieTableComp = (props: Props): JSX.Element => {
               IMDB_Rating={movie.IMDB_Rating}
             />
           );
-        })}
+        }): <p>No movies matched your search!</p>}
       </div>
       {/* Page navigation */}
       <div className="pageNavigation">
-        <Button onClick={prevPageHandler} variant="outlined">
+        <Button
+          className="prevButton"
+          onClick={prevPageHandler}
+          variant="contained"
+          disabled={props.offset - 10 >= 0 ? false : true}
+        >
           &larr; Prev page
         </Button>
         {/* might use later: */}
@@ -114,14 +120,20 @@ export const MovieTableComp = (props: Props): JSX.Element => {
           value={pagenum}
         ></input> */}
 
-        {/*  <TextField
+        <TextField
           className="pageTextField"
           disabled={true}
           type="text"
-          value={currentPage}
-        /> */}
+          value={"Page " + props.currentPage}
+        />
 
-        <Button onClick={nextPageHandler}  variant="outlined">
+        <Button
+          className="nextButton"
+          onClick={nextPageHandler}
+          variant="contained"
+          //Possible bug: if the last page contains 10 movies, the button is still possible to click on. The user can then open a empty page
+          disabled={props.movieList.length < 10 ? true : false}
+        >
           Next page &rarr;
         </Button>
       </div>

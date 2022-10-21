@@ -46,6 +46,9 @@
 }
 
 .pageTextField {
-  text-align: center !important;
-  width: 40 vw;
+  width: 100px;
+}
+
+.nextButton, .prevButton {
+  height: 56px;
 }

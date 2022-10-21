@@ -10,11 +10,13 @@ function MovieSearch() {
   const [title, setTitle] = useState<string>("");
   const [offset, setOffset] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState(1);
   let loadedMoviesList: IMovie[] = [];
 
   // If a new title is searched for, set the offset to zero.
   useEffect(() => {
     setOffset(0);
+    setCurrentPage(1);
   }, [title]);
 
   const { loading, error, data } = useQuery(GET_MOVIES(title), {
@@ -31,13 +33,13 @@ function MovieSearch() {
 
   return (
     <div>
-      <SearchBar title={title} setTitle={setTitle} />
+      <SearchBar title={title} setTitle={setTitle}  />
       <MovieTableComp
         movieList={loadedMoviesList}
         offset={offset}
         setOffset={setOffset}
-        limit={limit}
-        setLimit={setLimit}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   );
