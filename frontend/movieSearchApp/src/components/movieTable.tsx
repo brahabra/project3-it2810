@@ -43,26 +43,6 @@ interface Props {
 
 export const MovieTableComp = (props: Props): JSX.Element => {
   //const [pagenum, setPagenum] = useState(0);
-  // If right button is clicked, go to the next page
-  const nextPageHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (props.movieList.length < 10) {
-      alert("Already on last page!");
-    } else {
-      props.setOffset(props.offset + 10);
-      props.setCurrentPage(props.currentPage + 1);
-    }
-  };
-
-  // If left button is clicked, go to the prev page
-  // TODO: the if checks here can be removed because the button is disabled if the button should not be clicked
-  const prevPageHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (props.offset - 10 >= 0) {
-      props.setOffset(props.offset - 10);
-      props.setCurrentPage(props.currentPage - 1);
-    } else {
-      alert("Already on the first page!");
-    }
-  };
 
   //might use later:
   /*const inputPagenumHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,25 +70,30 @@ export const MovieTableComp = (props: Props): JSX.Element => {
           <p>Release year</p>
           <p>IMDB Rating</p>
         </div>
-        
-        {props.movieList.length > 0 ?
-        props.movieList.map((movie: IMovie) => {
-          return (
-            <MovieRowComp
-              Series_Title={movie.Series_Title}
-              Released_Year={movie.Released_Year}
-              IMDB_Rating={movie.IMDB_Rating}
-            />
-          );
-        }): <p>No movies matched your search!</p>}
+
+        {props.movieList.length > 0 ? (
+          props.movieList.map((movie: IMovie) => {
+            return (
+              <MovieRowComp
+                Series_Title={movie.Series_Title}
+                Released_Year={movie.Released_Year}
+                IMDB_Rating={movie.IMDB_Rating}
+              />
+            );
+          })
+        ) : (
+          <p>No movies matched your search!</p>
+        )}
       </div>
       {/* Page navigation */}
       <div className="pageNavigation">
         <Button
           className="prevButton"
-          onClick={prevPageHandler}
+          onClick={() => {
+            props.setCurrentPage(props.currentPage - 1);
+          }}
           variant="contained"
-          disabled={props.offset - 10 >= 0 ? false : true}
+          disabled={props.currentPage > 0 ? false : true}
         >
           &larr; Prev page
         </Button>
@@ -124,14 +109,17 @@ export const MovieTableComp = (props: Props): JSX.Element => {
           className="pageTextField"
           disabled={true}
           type="text"
-          value={"Page " + props.currentPage}
+          value={"Page " + (props.currentPage + 1)}
         />
 
         <Button
           className="nextButton"
-          onClick={nextPageHandler}
+          onClick={() => {
+            props.setCurrentPage(props.currentPage + 1);
+          }}
           variant="contained"
-          //Possible bug: if the last page contains 10 movies, the button is still possible to click on. The user can then open a empty page
+          //bug: if the last page contains 10 movies, the button is still possible to click on. The user can then open a empty page.
+          // not sure how we can fix this. Could be solved if we knew the size of the data list
           disabled={props.movieList.length < 10 ? true : false}
         >
           Next page &rarr;

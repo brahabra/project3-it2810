@@ -5,25 +5,32 @@ import { GET_MOVIES } from "../queries/getMovies";
 import SearchBar from "./SearchBar";
 import "../style/MovieSearch.css";
 import { MovieTableComp } from "./MovieTable";
+import { CircularProgress } from "@mui/material";
 
 function MovieSearch() {
   const [title, setTitle] = useState<string>("");
   const [offset, setOffset] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(10);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const PAGE_SIZE = 10;
   let loadedMoviesList: IMovie[] = [];
 
-  // If a new title is searched for, set the offset to zero.
+  // If a new title is searched for, set the the current page to zero.
   useEffect(() => {
-    setOffset(0);
-    setCurrentPage(1);
+    setCurrentPage(0);
   }, [title]);
 
   const { loading, error, data } = useQuery(GET_MOVIES(title), {
-    variables: { title, offset, limit },
+    variables: { title, offset: currentPage * PAGE_SIZE, limit: PAGE_SIZE },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div>
+        <p>Loading data...</p>
+        <CircularProgress />
+      </div>
+    );
+
   if (error) return <p>Error :(</p>;
 
   // Add the offset to the list which is showing the movies
@@ -33,7 +40,7 @@ function MovieSearch() {
 
   return (
     <div>
-      <SearchBar title={title} setTitle={setTitle}  />
+      <SearchBar title={title} setTitle={setTitle} />
       <MovieTableComp
         movieList={loadedMoviesList}
         offset={offset}
