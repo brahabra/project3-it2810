@@ -21,7 +21,8 @@ export default function SearchBar(props: Props) {
   return (
     <div className="searchBar">
       <TextField  className="searchInput"
-        label="Enter the title of your movie ..."
+        placeholder="Enter the title of your movie ..."
+        label="Title of movie"
         type="text"
         onChange={onChangeSearch}
         value={search}

@@ -1,3 +1,4 @@
+import { TextField, Button } from "@mui/material";
 import { off } from "process";
 import { useState } from "react";
 import { IMovie, IMovies } from "../interfaces/IMovie";
@@ -8,7 +9,11 @@ import "../style/movieTable.css";
  *
  * @param {IMovie} {  Series_Title, Released_Year, IMDB_Rating }
  */
-export const MovieRowComp = ({ Series_Title, Released_Year, IMDB_Rating }: IMovie) => (
+export const MovieRowComp = ({
+  Series_Title,
+  Released_Year,
+  IMDB_Rating,
+}: IMovie) => (
   <div className="movieRow">
     <div className="movieRowSection">
       <p>{Series_Title}</p>
@@ -22,42 +27,41 @@ export const MovieRowComp = ({ Series_Title, Released_Year, IMDB_Rating }: IMovi
   </div>
 );
 
- /**
+/**
  * @description Table component for displaying movies. Creates a list of movieRowComps and displays them as a table.
  *
  * @param {IMovies} moviesProp
  */
-  
-  interface Props {
-    movieList: IMovie[];
-    offset: number;
-    limit: number;
-    isLastPage: boolean;
-    setOffset: (value: number) => void;
-    setLimit: (value: number) => void;
-    setIsLastPage: (value: boolean) => void;
-  }
 
-  export const MovieTableComp = (props: Props): JSX.Element => {
+interface Props {
+  movieList: IMovie[];
+  offset: number;
+  limit: number;
+  setOffset: (value: number) => void;
+  setLimit: (value: number) => void;
+}
+
+export const MovieTableComp = (props: Props): JSX.Element => {
   //const [pagenum, setPagenum] = useState(0);
+  //let currentPage = 0;
 
   // If right button is clicked, go to the next page
-  const buttonRightHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if(props.isLastPage){
+  const nextPageHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (props.movieList.length < 10) {
       alert("Already on last page!");
-    }
-    else {
+    } else {
       props.setOffset(props.offset + 10);
     }
+    //currentPage++;
   };
 
   // If left button is clicked, go to the prev page
-  const buttonLeftHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if(props.offset - 10 >= 0){
+  const prevPageHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (props.offset - 10 >= 0) {
       props.setOffset(props.offset - 10);
-    }
-    else {
-      alert("Already on the first page!")
+      // currentPage--;
+    } else {
+      alert("Already on the first page!");
     }
   };
 
@@ -83,8 +87,8 @@ export const MovieRowComp = ({ Series_Title, Released_Year, IMDB_Rating }: IMovi
       {/* The table */}
       <div className="movieTable">
         <div className="movieTableDiscription">
-          <p>Movie Title</p>
-          <p>Movie Year</p>
+          <p>Title</p>
+          <p>Release year</p>
           <p>IMDB Rating</p>
         </div>
         {props.movieList.map((movie: IMovie) => {
@@ -99,7 +103,9 @@ export const MovieRowComp = ({ Series_Title, Released_Year, IMDB_Rating }: IMovi
       </div>
       {/* Page navigation */}
       <div className="pageNavigation">
-        <button onClick={buttonLeftHandler}>&larr; Prev page</button>
+        <Button onClick={prevPageHandler} variant="outlined">
+          &larr; Prev page
+        </Button>
         {/* might use later: */}
         {/* <input
           className="pageField"
@@ -107,7 +113,17 @@ export const MovieRowComp = ({ Series_Title, Released_Year, IMDB_Rating }: IMovi
           onChange={inputPagenumHandler}
           value={pagenum}
         ></input> */}
-        <button onClick={buttonRightHandler}>Next page &rarr;</button>
+
+        {/*  <TextField
+          className="pageTextField"
+          disabled={true}
+          type="text"
+          value={currentPage}
+        /> */}
+
+        <Button onClick={nextPageHandler}  variant="outlined">
+          Next page &rarr;
+        </Button>
       </div>
     </div>
   );

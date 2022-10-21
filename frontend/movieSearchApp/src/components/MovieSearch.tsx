@@ -10,52 +10,36 @@ function MovieSearch() {
   const [title, setTitle] = useState<string>("");
   const [offset, setOffset] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
-  const [isLastPage, setIsLastPage] = useState<boolean>(false);
+  let loadedMoviesList: IMovie[] = [];
 
-  // When new title is searched for, set the offset to zero. 
+  // If a new title is searched for, set the offset to zero.
   useEffect(() => {
     setOffset(0);
-  }, [title])
+  }, [title]);
 
-  function DisplayMovies() {
-    let loadedMoviesList: IMovie[] = [];
+  const { loading, error, data } = useQuery(GET_MOVIES(title), {
+    variables: { title, offset, limit },
+  });
 
-    const { loading, error, data } = useQuery(GET_MOVIES(title), {
-      variables: { title, offset, limit },
-    });
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+  // Add the offset to the list which is showing the movies
+  data.movies.map((movie: IMovie) => {
+    loadedMoviesList.push(movie);
+  });
 
-    // Check if the last page is showing
-    if(data.movies.length < 10){
-      setIsLastPage(true);
-    }
-
-    data.movies.map((movie: IMovie) => {
-      loadedMoviesList.push(movie);
-    });
-    
-    return (
+  return (
+    <div>
+      <SearchBar title={title} setTitle={setTitle} />
       <MovieTableComp
         movieList={loadedMoviesList}
         offset={offset}
         setOffset={setOffset}
         limit={limit}
         setLimit={setLimit}
-        isLastPage={isLastPage}
-        setIsLastPage={setIsLastPage}
       />
-    );
-  }
-
-  return (
-    <>
-      <div className="test">
-        <SearchBar title={title} setTitle={setTitle} />
-        <DisplayMovies />
-      </div>
-    </>
+    </div>
   );
 }
 

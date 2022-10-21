@@ -44,3 +44,8 @@
   /* height: 60vh; */
   justify-content: center;
 }
+
+.pageTextField {
+  text-align: center !important;
+  width: 40 vw;
+}
