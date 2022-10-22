@@ -49,7 +49,15 @@ const typeDefs = gql`
         #Star3: String
         #Star4: String
     }
-
+    type Query {
+        findMovieByTitle(searchString: String): [Movie] @cypher(
+            statement: """
+            CALL db.index.fulltext.queryNodes(
+                'titles', $searchString+'~') 
+            YIELD node RETURN node
+            """
+  )
+}
 `;
 
 //Driver for fetching data from Neo4j database, with generic user with read priviliges
