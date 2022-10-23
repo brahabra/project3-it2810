@@ -50,11 +50,11 @@ const typeDefs = gql`
         #Star4: String
     }
     type Query {
-        findMovieByTitle(searchString: String): [Movie] @cypher(
+        findMovieByTitle(searchString: String, offset: Int, limit: Int): [Movie] @cypher(
             statement: """
             CALL db.index.fulltext.queryNodes(
                 'titles', $searchString+'~') 
-            YIELD node RETURN node
+            YIELD node RETURN node SKIP $offset LIMIT $limit
             """
   )
 }

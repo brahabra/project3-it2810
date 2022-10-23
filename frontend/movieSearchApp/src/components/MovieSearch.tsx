@@ -7,8 +7,10 @@ function MovieSearch() {
   const [title, setTitle] = useState<string>("matrix");
 
   function DisplayMovies2() {
+    const offset = 0;
+    const limit = 10;
     const { loading, error, data } = useQuery(GET_MOVIES, {
-      variables: { searchString: title },
+      variables: { searchString: title, offset, limit},
     });
 
     if (loading) return <p>Loading...</p>;
