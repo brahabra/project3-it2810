@@ -1,0 +1,12 @@
+.searchBar {
+  margin: auto;
+}
+
+.searchInput {
+  width:45vw;
+}
+
+.searchButton{
+  width:15vw;
+  height: 56px;
+}
