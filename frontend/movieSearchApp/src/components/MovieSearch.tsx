@@ -8,8 +8,8 @@ import { MovieTableComp } from "./MovieTable";
 import { CircularProgress } from "@mui/material";
 
 function MovieSearch() {
-  const [title, setTitle] = useState<string>("");
-  const [offset, setOffset] = useState<number>(0);
+const [title, setTitle] = useState<string>("matrix");  
+const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
   const PAGE_SIZE = 10;
   let loadedMoviesList: IMovie[] = [];
@@ -19,9 +19,9 @@ function MovieSearch() {
     setCurrentPage(0);
   }, [title]);
 
-  const { loading, error, data } = useQuery(GET_MOVIES(title), {
-    variables: { title, offset: currentPage * PAGE_SIZE, limit: PAGE_SIZE },
-  });
+  const { loading, error, data } = useQuery(GET_MOVIES, {
+      variables: { searchString: title, offset: currentPage * PAGE_SIZE, limit: PAGE_SIZE},
+    });
 
   if (loading)
     return (
@@ -31,10 +31,10 @@ function MovieSearch() {
       </div>
     );
 
-  if (error) return <p>Error :(</p>;
+  if (error) return <p>Error</p>;
 
   // Add the offset to the list which is showing the movies
-  data.movies.map((movie: IMovie) => {
+  data.findMovieByTitle.map((movie: IMovie) => {
     loadedMoviesList.push(movie);
   });
 
