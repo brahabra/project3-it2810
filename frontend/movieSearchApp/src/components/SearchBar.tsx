@@ -15,7 +15,7 @@ export default function SearchBar(props: Props) {
   };
 
   const onSubmit = () => { 
-    props.setTitle(search);
+    props.setTitle(search.trim());
   };
 
   return (
