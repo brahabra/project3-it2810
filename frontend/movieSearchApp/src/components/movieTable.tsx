@@ -20,7 +20,7 @@ export const MovieTableComp = (props: Props): JSX.Element => {
     <div className="movieTableContainer">
       {props.movieList.length > 0 ? (
         props.movieList.map((movie: IExtendedMovie) => {
-          return <MovieComponent movie={movie} />;
+          return <MovieComponent key={movie.Poster_Link} movie={movie} />;
         })
       ) : (
         <p>No movies matched your search!</p>

@@ -22,13 +22,10 @@ export const Pagination = (props: Props) => {
         variant="contained"
         disabled={props.currentPage > 0 ? false : true}
       >
-        &larr; Previous page
+        &larr; Prev page
       </Button>
 
-     
-      <p className="pageText">
-        Page {props.currentPage + 1}
-      </p>
+      <p className="pageText">Page {props.currentPage + 1}</p>
 
       <Button
         className="nextButton"

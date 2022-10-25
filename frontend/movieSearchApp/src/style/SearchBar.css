@@ -3,6 +3,8 @@
   width: 45vw;
   margin-bottom: 20px;
   margin-top: 50px;
+  display: flex;
+  flex-direction: row;
 }
 
 .searchInput {
@@ -10,13 +12,20 @@
   text-align: center;
   margin-top: 20px;
   border-radius: 25px !important;
-  width:35vw;  
+  width: 100%;  
 }
 
 .searchButton{
   margin: auto;
   border-radius: 15px !important;
-  width:10vw;
+  width:60%;
   margin-top: 20px;
   height: 56px;
 } 
+
+
+@media only screen and (max-width: 750px) {
+  .searchBar{
+      width: 70vw;
+  }
+}
