@@ -1,0 +1,27 @@
+.pageNavigation {
+  margin: auto;
+  width: 45vw;
+  display: flex;
+  flex-direction: row;
+}
+
+.pageText {
+  width: 100px;
+  border-radius: 25px;
+  font-size: larger;
+  text-align: center;
+  height: 56;
+}
+  
+.nextButton, .prevButton {
+  width: 50%;
+  border-radius: 15px !important;
+}
+ 
+
+@media only screen and (max-width: 750px) {
+  .pageNavigation{
+      width: 90vw;
+  }
+
+}

@@ -1,18 +1,17 @@
 .movieBox {
     border-radius: 25px;
-    background-color: #dbd7d7;
+    background-color: #E2E2E2;
     margin: auto;
-    border: 2px solid black;
+    /*border: 1px solid black;*/
     margin-bottom: 15px;
     margin-top: 15px;
-    width: 60%;
+    width: 75%;
     cursor: pointer;
 }
 
 .shortMovie {
     margin: 20px;
 }
-
 
 .extendedMovie {
     display: flex;
@@ -27,4 +26,21 @@
 
 .extendedMovie .movieText {
     padding: 20px;
+}
+
+@media only screen and (max-width: 750px) {
+  .movieBox {
+    width: 95%;
+  }
+  .extendedMovie .movieText {
+    padding: 5px;
+  }
+
+  .extendedMovie .moviePicture {
+    margin: auto;
+  }
+
+  .extendedMovie {
+    flex-direction: column;
+  }
 }

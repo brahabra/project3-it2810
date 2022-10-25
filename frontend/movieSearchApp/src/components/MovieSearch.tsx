@@ -5,7 +5,8 @@ import { GET_ALL_MOVIES, GET_MOVIES_BY_TITLE } from "../queries/getMovies";
 import SearchBar from "./SearchBar";
 import "../style/MovieSearch.css";
 import { MovieTableComp } from "./MovieTable";
-import { Box } from "@mui/material";
+import { Box, TableSortLabel } from "@mui/material";
+import { Pagination } from "./Pagination";
 
 function MovieSearch() {
   const [title, setTitle] = useState<string>("");
@@ -60,12 +61,15 @@ function MovieSearch() {
       <Box className="movieList">
         <MovieTableComp
           movieList={loadedMoviesList}
-          offset={offset}
-          setOffset={setOffset}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
         />
       </Box>
+      <Pagination
+        movieList={loadedMoviesList}
+        offset={offset}
+        setOffset={setOffset}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 }
