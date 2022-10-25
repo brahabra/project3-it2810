@@ -1,4 +1,7 @@
-.test{
-    display: flex;
-    flex-direction: column;
+.movieList{
+    border-radius: 25px;
+    background-color: #692f2f;
+    margin: auto;
+    box-shadow: "20";
+    margin-bottom: 20px;
 }

@@ -1,40 +1,18 @@
 import { TextField, Button } from "@mui/material";
 import { off } from "process";
 import { useState } from "react";
-import { IMovie, IMovies } from "../interfaces/IMovie";
+import { IExtendedMovie, IMovie, IMovies } from "../interfaces/IMovie";
 import "../style/MovieTable.css";
+import { MovieComponent } from "./MovieComponent";
 
 /**
- * @description The row elements of the movie table. Displays the name, release year and IMDB rating.
- *
- * @param {IMovie} {  Series_Title, Released_Year, IMDB_Rating }
- */
-export const MovieRowComp = ({
-  Series_Title,
-  Released_Year,
-  IMDB_Rating,
-}: IMovie) => (
-  <div className="movieRow">
-    <div className="movieRowSection">
-      <p>{Series_Title}</p>
-    </div>
-    <div className="movieRowSection">
-      <p>{Released_Year}</p>
-    </div>
-    <div className="movieRowSection">
-      <p>{IMDB_Rating}</p>
-    </div>
-  </div>
-);
-
-/**
- * @description Table component for displaying movies. Creates a list of movieRowComps and displays them as a table.
+ * @description Table component for displaying movies. Creates a list of movies and displays them.
  *
  * @param {IMovies} moviesProp
  */
 
 interface Props {
-  movieList: IMovie[];
+  movieList: IExtendedMovie[];
   offset: number;
   currentPage: number;
   setOffset: (value: number) => void;
@@ -42,50 +20,16 @@ interface Props {
 }
 
 export const MovieTableComp = (props: Props): JSX.Element => {
-  //const [pagenum, setPagenum] = useState(0);
-
-  //might use later:
-  /*const inputPagenumHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const enteredNumber: number = event.target.valueAsNumber;
-    if (!isNaN(enteredNumber)) {
-      setPagenum(enteredNumber);
-      alert("going to page " + enteredNumber);
-    }
-    //set pagunation number
-  };*/
-
   return (
     <div className="movieTableContainer">
-      {/* Table filtering */}
-      {/* <div className="FilterBar">
-        <label>Genre</label>
-        <input type="text" />
-        <label>Actor</label>
-        <input type="text" />
-      </div> */}
-      {/* The table */}
-      <div className="movieTable">
-        <div className="movieTableDiscription">
-          <p>Title</p>
-          <p>Release year</p>
-          <p>IMDB Rating</p>
-        </div>
+      {props.movieList.length > 0 ? (
+        props.movieList.map((movie: IExtendedMovie) => {
+          return <MovieComponent movie={movie} />;
+        })
+      ) : (
+        <p>No movies matched your search!</p>
+      )}
 
-        {props.movieList.length > 0 ? (
-          props.movieList.map((movie: IMovie) => {
-            return (
-              <MovieRowComp
-                Series_Title={movie.Series_Title}
-                Released_Year={movie.Released_Year}
-                IMDB_Rating={movie.IMDB_Rating}
-              />
-            );
-          })
-        ) : (
-          <p>No movies matched your search!</p>
-        )}
-      </div>
-      {/* Page navigation */}
       <div className="pageNavigation">
         <Button
           className="prevButton"
@@ -97,13 +41,6 @@ export const MovieTableComp = (props: Props): JSX.Element => {
         >
           &larr; Prev page
         </Button>
-        {/* might use later: */}
-        {/* <input
-          className="pageField"
-          type="number"
-          onChange={inputPagenumHandler}
-          value={pagenum}
-        ></input> */}
 
         <TextField
           className="pageTextField"

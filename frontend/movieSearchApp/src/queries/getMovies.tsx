@@ -7,9 +7,22 @@ export const GET_MOVIES_BY_TITLE = gql`
       offset: $offset
       limit: $limit
     ) {
+      Poster_Link
       Series_Title
       Released_Year
+      Certificate
+      Runtime
+      Genre
       IMDB_Rating
+      Overview
+      Meta_score
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+      No_of_Votes
+      Gross
     }
   }
 `;
@@ -17,9 +30,22 @@ export const GET_MOVIES_BY_TITLE = gql`
 export const GET_ALL_MOVIES = gql`
   query ($offset: Int, $limit: Int) {
     movies(options: { offset: $offset, limit: $limit }) {
+      Poster_Link
       Series_Title
       Released_Year
+      Certificate
+      Runtime
+      Genre
       IMDB_Rating
+      Overview
+      Meta_score
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+      No_of_Votes
+      Gross
     }
   }
 `;

@@ -1,17 +1,18 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { IMovie } from "../interfaces/IMovie";
+import { IExtendedMovie, IMovie } from "../interfaces/IMovie";
 import { GET_ALL_MOVIES, GET_MOVIES_BY_TITLE } from "../queries/getMovies";
 import SearchBar from "./SearchBar";
 import "../style/MovieSearch.css";
 import { MovieTableComp } from "./MovieTable";
+import { Box } from "@mui/material";
 
 function MovieSearch() {
   const [title, setTitle] = useState<string>("");
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
   const PAGE_SIZE = 10;
-  let loadedMoviesList: IMovie[] = [];
+  let loadedMoviesList: IExtendedMovie[] = [];
 
   // If a new title is searched for, set the the current page to zero.
   useEffect(() => {
@@ -44,11 +45,11 @@ function MovieSearch() {
 
   // Add the offset to the list which is showing the movies
   if (titleIsEmpty()) {
-    data.movies.map((movie: IMovie) => {
+    data.movies.map((movie: IExtendedMovie) => {
       loadedMoviesList.push(movie);
     });
   } else {
-    data.findMovieByTitle.map((movie: IMovie) => {
+    data.findMovieByTitle.map((movie: IExtendedMovie) => {
       loadedMoviesList.push(movie);
     });
   }
@@ -56,13 +57,15 @@ function MovieSearch() {
   return (
     <div>
       <SearchBar title={title} setTitle={setTitle} />
-      <MovieTableComp
-        movieList={loadedMoviesList}
-        offset={offset}
-        setOffset={setOffset}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <Box className="movieList">
+        <MovieTableComp
+          movieList={loadedMoviesList}
+          offset={offset}
+          setOffset={setOffset}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </Box>
     </div>
   );
 }
