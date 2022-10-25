@@ -7,12 +7,13 @@ import "../style/MovieSearch.css";
 import { MovieTableComp } from "./MovieTable";
 import { Box, TableSortLabel } from "@mui/material";
 import { Pagination } from "./Pagination";
+import { E } from "../enum";
 
 function MovieSearch() {
   const [title, setTitle] = useState<string>("");
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const PAGE_SIZE = 10;
+  const PAGE_SIZE = 5;
   let loadedMoviesList: IExtendedMovie[] = [];
 
   // If a new title is searched for, set the the current page to zero.
@@ -23,20 +24,20 @@ function MovieSearch() {
   function titleIsEmpty() {
     return title == "";
   }
-
+  
   // If titleIsEmpty, load all movies. If the title is not empty, load the movies with the stirng it is searched for
   const { loading, error, data } = useQuery(
     titleIsEmpty() ? GET_ALL_MOVIES : GET_MOVIES_BY_TITLE,
     {
       variables: titleIsEmpty()
         ? {
-            offset: currentPage * PAGE_SIZE,
-            limit: PAGE_SIZE,
+            offset: currentPage * E.PAGE_SIZE,
+            limit: E.PAGE_SIZE,
           }
         : {
             searchString: title,
-            offset: currentPage * PAGE_SIZE,
-            limit: PAGE_SIZE,
+            offset: currentPage * E.PAGE_SIZE,
+            limit: E.PAGE_SIZE,
           },
     }
   );
