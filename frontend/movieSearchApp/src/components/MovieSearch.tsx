@@ -1,50 +1,77 @@
 import { useQuery } from "@apollo/client";
-import { useState } from "react";
-import { GET_MOVIES } from "../queries/getMovies";
+import { useEffect, useState } from "react";
+import { IExtendedMovie, IMovie } from "../interfaces/IMovie";
+import { GET_ALL_MOVIES, GET_MOVIES_BY_TITLE } from "../queries/getMovies";
 import SearchBar from "./SearchBar";
+import "../style/MovieSearch.css";
+import { Box, TableSortLabel } from "@mui/material";
+import { Pagination } from "./Pagination";
+import { E } from "../enum";
+import { DisplayMovies } from "./DisplayMovies";
 
 function MovieSearch() {
   const [title, setTitle] = useState<string>("");
+  const [offset, setOffset] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const PAGE_SIZE = 5;
+  let loadedMoviesList: IExtendedMovie[] = [];
 
-  function DisplayMovies2() {
-    const { loading, error, data } = useQuery(GET_MOVIES(title), {
-      variables: { title, offset: 0, limit: 10 },
+  // If a new title is searched for, set the the current page to zero.
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [title]);
+
+  function titleIsEmpty() {
+    return title == "";
+  }
+  
+  // If titleIsEmpty, load all movies. If the title is not empty, load the movies with the stirng it is searched for
+  const { loading, error, data } = useQuery(
+    titleIsEmpty() ? GET_ALL_MOVIES : GET_MOVIES_BY_TITLE,
+    {
+      variables: titleIsEmpty()
+        ? {
+            offset: currentPage * E.PAGE_SIZE,
+            limit: E.PAGE_SIZE,
+          }
+        : {
+            searchString: title,
+            offset: currentPage * E.PAGE_SIZE,
+            limit: E.PAGE_SIZE,
+          },
+    }
+  );
+
+  if (loading) return <p>Loading data ...</p>;
+  if (error) return <p>Could not load movies ...</p>;
+
+  // Add the offset to the list which is showing the movies
+  if (titleIsEmpty()) {
+    data.movies.map((movie: IExtendedMovie) => {
+      loadedMoviesList.push(movie);
     });
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-    return data.movies.map(
-      ({
-        Poster_Link,
-        Series_Title,
-        IMDB_Rating,
-      }: {
-        Poster_Link: string;
-        Series_Title: string;
-        IMDB_Rating: string;
-      }) => (
-        <div key={Poster_Link}>
-          <h3>{Series_Title}</h3>
-          {/* <img width="450" height="450" alt="location-reference" src={`${Poster_Link.substring(0, 116)}`} /> */}
-          <img
-            width="50"
-            height="50"
-            alt="location-reference"
-            src={`${Poster_Link}`}
-          />
-          <br />
-          <p>IMDB Rating:{IMDB_Rating}</p>
-          <br />
-        </div>
-      )
-    );
+  } else {
+    data.findMovieByTitle.map((movie: IExtendedMovie) => {
+      loadedMoviesList.push(movie);
+    });
   }
 
   return (
-    <>
+    <div>
       <SearchBar title={title} setTitle={setTitle} />
-      <DisplayMovies2 />
-    </>
+      <Box className="movieList">
+        <DisplayMovies
+          movieList={loadedMoviesList}
+        />
+      </Box>
+      <Pagination
+        movieList={loadedMoviesList}
+        offset={offset}
+        setOffset={setOffset}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+    </div>
   );
 }
 
