@@ -23,7 +23,7 @@ export const GET_MOVIES_BY_TITLE = gql`
   }
 `;
 
-export const GET_MOVIE_BY_GENRE_SORT_BY_RATING = gql`
+export const GET_MOVIES_BY_GENRE_SORT_BY_RATING = gql`
   query findMovieByGenreSortByRating($filterString: String!, $options: MovieOptions!) {
     findMovieByGenreSortByRating(
     filterString: $filterString,
@@ -38,7 +38,7 @@ export const GET_MOVIE_BY_GENRE_SORT_BY_RATING = gql`
 `;
 
 
-export const GET_MOVIE_BY_TITLE_FILTER_BY_GENRE = gql`
+export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE = gql`
   query findMovieByTitleWithGenreFilter($searchString: String!, $filterString: String!, $options: MovieOptions!) {
     findMovieByTitleWithGenreFilter(
     searchString: $searchString,
@@ -54,7 +54,7 @@ export const GET_MOVIE_BY_TITLE_FILTER_BY_GENRE = gql`
 `;
 
 
-export const GET_MOVIE_BY_TITLE_FILTER_BY_GENRE_SORT_BY_RATING = gql`
+export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE_SORT_BY_RATING = gql`
   query findMovieByTitleWithGenreFilterSortByRating($searchString: String!, $filterString: String!, $options: MovieOptions!) {
     findMovieByTitleWithGenreFilterSortByRating(
     searchString: $searchString,
