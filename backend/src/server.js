@@ -56,8 +56,21 @@ const typeDefs = gql`
                 'titles', $searchString+'~') 
             YIELD node RETURN node SKIP $offset LIMIT $limit
             """
-  )
-}
+        )
+
+        findMovieByTitleWithGenreFilter(searchString: String, filterString: String, offset: Int, limit: Int): [Movie] @cypher(
+            statement: """
+            CALL db.index.fulltext.queryNodes(
+                'titles', $searchString+'~') 
+            YIELD node 
+            MATCH (node)
+            WHERE node.Genre Contains $filterString
+            RETURN node 
+            SKIP $offset 
+            LIMIT $limit
+            """
+        )
+    }
 `;
 
 //Driver for fetching data from Neo4j database, with generic user with read priviliges
