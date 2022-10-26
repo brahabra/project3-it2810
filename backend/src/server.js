@@ -54,7 +54,11 @@ const typeDefs = gql`
             statement: """
             CALL db.index.fulltext.queryNodes(
                 'titles', $searchString+'~') 
-            YIELD node RETURN node SKIP $offset LIMIT $limit
+            YIELD node, score
+            RETURN node 
+            ORDER BY score DESC
+            SKIP $offset 
+            LIMIT $limit
             """
         )
 
@@ -62,10 +66,11 @@ const typeDefs = gql`
             statement: """
             CALL db.index.fulltext.queryNodes(
                 'titles', $searchString+'~') 
-            YIELD node 
+            YIELD node, score
             MATCH (node)
             WHERE node.Genre Contains $filterString
             RETURN node 
+            ORDER BY score DESC
             SKIP $offset 
             LIMIT $limit
             """
