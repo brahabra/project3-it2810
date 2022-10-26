@@ -4,10 +4,10 @@ import { IExtendedMovie, IMovie } from "../interfaces/IMovie";
 import { GET_ALL_MOVIES, GET_MOVIES_BY_TITLE } from "../queries/getMovies";
 import SearchBar from "./SearchBar";
 import "../style/MovieSearch.css";
-import { MovieTableComp } from "./MovieTable";
 import { Box, TableSortLabel } from "@mui/material";
 import { Pagination } from "./Pagination";
 import { E } from "../enum";
+import { DisplayMovies } from "./DisplayMovies";
 
 function MovieSearch() {
   const [title, setTitle] = useState<string>("");
@@ -60,7 +60,7 @@ function MovieSearch() {
     <div>
       <SearchBar title={title} setTitle={setTitle} />
       <Box className="movieList">
-        <MovieTableComp
+        <DisplayMovies
           movieList={loadedMoviesList}
         />
       </Box>

@@ -2,7 +2,7 @@ import { TextField, Button } from "@mui/material";
 import { off } from "process";
 import { useState } from "react";
 import { IExtendedMovie, IMovie, IMovies } from "../interfaces/IMovie";
-import "../style/MovieTable.css";
+import "../style/DisplayMovies.css";
 import { MovieComponent } from "./MovieComponent";
 
 /**
@@ -15,7 +15,7 @@ interface Props {
   movieList: IExtendedMovie[];
 }
 
-export const MovieTableComp = (props: Props): JSX.Element => {
+export const DisplayMovies = (props: Props): JSX.Element => {
   return (
     <div className="movieTableContainer">
       {props.movieList.length > 0 ? (
