@@ -1,24 +1,24 @@
-import { GET_MOVIES_BY_TITLE } from "../queries/getMovies"
 import { useQuery } from "@apollo/client";
-import { IMovie } from "../interfaces/IMovie";
-import SearchBar from "./SearchBar";
-import { MovieTableComp } from "./MovieTable";
 import { useState } from "react";
+import { IMovie } from "../interfaces/IMovie";
+import { GET_ALL_MOVIES } from "../queries/getMovies";
+import { MovieTableComp } from "./MovieTable";
+import SearchBar from "./SearchBar";
 
 interface Props {
   title: string;
   setTitle: (value: string) => void;
 }
 
-function SearchByTitle(props: Props) {
+
+function GetAllMovies(props: Props) {
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
   const PAGE_SIZE = 10;
   let loadedMoviesList: IMovie[] = [];
 
-  const { loading, error, data } = useQuery(GET_MOVIES_BY_TITLE, {
+  const { loading, error, data } = useQuery(GET_ALL_MOVIES, {
     variables: {
-      searchString: props.title,
       options: {
         offset: currentPage * PAGE_SIZE,
         limit: PAGE_SIZE,
@@ -26,17 +26,19 @@ function SearchByTitle(props: Props) {
     }
   });
 
-  if (loading) return <p>Loading ...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p>Loading data ...</p>;
+  if (error) return <p>Could not load movies ... </p>;
+
 
   if (data) {
-    data.findMovieByTitle.forEach((movie: IMovie) => {
+    data.movies.map((movie: IMovie) => {
       loadedMoviesList.push(movie);
     })
   }
 
   return (
     <div>
+      
       <SearchBar title={props.title} setTitle={props.setTitle} />
       <MovieTableComp
         movieList={loadedMoviesList}
@@ -47,8 +49,6 @@ function SearchByTitle(props: Props) {
       />
     </div>
   );
-
 }
 
-export default SearchByTitle;
-
+export default GetAllMovies;

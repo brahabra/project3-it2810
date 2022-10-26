@@ -1,4 +1,4 @@
-import { GET_MOVIES_BY_TITLE } from "../queries/getMovies"
+import { GET_MOVIES_BY_GENRE_SORT_BY_RATING, GET_MOVIES_BY_TITLE, GET_MOVIES_BY_TITLE_FILTER_BY_GENRE, GET_MOVIES_BY_TITLE_FILTER_BY_GENRE_SORT_BY_RATING } from "../queries/getMovies"
 import { useQuery } from "@apollo/client";
 import { IMovie } from "../interfaces/IMovie";
 import SearchBar from "./SearchBar";
@@ -6,19 +6,21 @@ import { MovieTableComp } from "./MovieTable";
 import { useState } from "react";
 
 interface Props {
-  title: string;
+  title: string,
+  filter: string;
   setTitle: (value: string) => void;
 }
 
-function SearchByTitle(props: Props) {
+function SearchByTitleAndGenreSorted(props: Props) {
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
   const PAGE_SIZE = 10;
   let loadedMoviesList: IMovie[] = [];
 
-  const { loading, error, data } = useQuery(GET_MOVIES_BY_TITLE, {
+  const { loading, error, data } = useQuery(GET_MOVIES_BY_TITLE_FILTER_BY_GENRE_SORT_BY_RATING, {
     variables: {
       searchString: props.title,
+      filterString: props.filter,
       options: {
         offset: currentPage * PAGE_SIZE,
         limit: PAGE_SIZE,
@@ -30,7 +32,7 @@ function SearchByTitle(props: Props) {
   if (error) return <p>Error: {error.message}</p>;
 
   if (data) {
-    data.findMovieByTitle.forEach((movie: IMovie) => {
+    data.findMovieByTitleWithGenreFilter.forEach((movie: IMovie) => {
       loadedMoviesList.push(movie);
     })
   }
@@ -50,5 +52,4 @@ function SearchByTitle(props: Props) {
 
 }
 
-export default SearchByTitle;
-
+export default SearchByTitleAndGenreSorted;

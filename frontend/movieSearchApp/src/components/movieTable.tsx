@@ -72,9 +72,10 @@ export const MovieTableComp = (props: Props): JSX.Element => {
         </div>
 
         {props.movieList.length > 0 ? (
-          props.movieList.map((movie: IMovie) => {
+          props.movieList.map((movie: IMovie, id) => {
             return (
               <MovieRowComp
+                key={id}
                 Series_Title={movie.Series_Title}
                 Released_Year={movie.Released_Year}
                 IMDB_Rating={movie.IMDB_Rating}
