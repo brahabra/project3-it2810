@@ -14,20 +14,30 @@ export default function SearchBar(props: Props) {
     setSearch(event.target.value);
   };
 
-  const onSubmit = () => { 
+  const onSubmit = () => {
     props.setTitle(search.trim());
+  };
+
+  const handleKeyDown = (event: any) => {
+    if (event.key === "Enter") {
+      props.setTitle(search.trim());
+    }
   };
 
   return (
     <div className="searchBar">
-      <TextField className="searchInput"
+      <TextField
+        className="searchInput"
         placeholder="Enter the title of your movie ..."
         label="Title of movie"
         type="text"
         onChange={onChangeSearch}
+        onKeyDown={handleKeyDown}
         value={search}
       />
-      <Button className="searchButton" variant="contained" onClick={onSubmit}>Search</Button>
+      <Button className="searchButton" variant="contained" onClick={onSubmit}>
+        Search
+      </Button>
     </div>
   );
 }

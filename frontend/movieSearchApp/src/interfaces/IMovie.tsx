@@ -16,7 +16,7 @@ export interface IExtendedMovie extends IMovie {
   Meta_score: String;
   No_of_Votes: String;
   Overview: String;
-  Poster_Link: String;
+  Poster_Link: string;
   Runtime: String;
   Star1: String;
   Star2: String;
