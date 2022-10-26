@@ -7,6 +7,9 @@ require("dotenv").config();
 //Types for use in schema generation for Neo4J database, is fetched by neoSchema further down
 const typeDefs = gql`
     type Movie {
+        MovieIndex: String
+            @cypher (
+            statement: """CALL db.index.fulltext.queryNodes('titles')""")
         Certificate: String
         Director: String
         Genre: String
@@ -32,6 +35,7 @@ const typeDefs = gql`
 
     type SearchQuery {
         user: User!
+        Series_Title: String!
         #Certificate: String
         #Director: String
         #Genre: String
@@ -43,26 +47,36 @@ const typeDefs = gql`
         #Poster_Link: String
         #Released_Year: String
         #Runtime: String
-        Series_Title: String!
         #Star1: String
         #Star2: String
         #Star3: String
         #Star4: String
     }
     type Query {
-        findMovieByTitle(searchString: String, offset: Int, limit: Int): [Movie] @cypher(
+        findMovieByTitle(searchString: String!, where: MovieWhere, options: MovieOptions!): [Movie] @cypher(
             statement: """
             CALL db.index.fulltext.queryNodes(
                 'titles', $searchString+'~') 
             YIELD node, score
             RETURN node 
             ORDER BY score DESC
-            SKIP $offset 
-            LIMIT $limit
+            SKIP $options.offset 
+            LIMIT $options.limit
             """
         )
 
-        findMovieByTitleWithGenreFilter(searchString: String, filterString: String, offset: Int, limit: Int): [Movie] @cypher(
+        findMovieByGenreSortByRating(filterString: String, options: MovieOptions!): [Movie] @cypher(
+            statement: """
+            MATCH (n: Movie)
+            WHERE n.Genre Contains $filterString
+            RETURN n
+            ORDER BY n.IMDB_Rating
+            SKIP $options.offset 
+            LIMIT $options.limit
+            """
+        )
+
+        findMovieByTitleWithGenreFilter(searchString: String, filterString: String, options: MovieOptions!): [Movie] @cypher(
             statement: """
             CALL db.index.fulltext.queryNodes(
                 'titles', $searchString+'~') 
@@ -71,8 +85,23 @@ const typeDefs = gql`
             WHERE node.Genre Contains $filterString
             RETURN node 
             ORDER BY score DESC
-            SKIP $offset 
-            LIMIT $limit
+            SKIP $options.offset 
+            LIMIT $options.limit
+            """
+        )
+
+        
+        findMovieByTitleWithGenreFilterSortByRating(searchString: String, filterString: String, options: MovieOptions!): [Movie] @cypher(
+            statement: """
+            CALL db.index.fulltext.queryNodes(
+                'titles', $searchString+'~') 
+            YIELD node, score
+            MATCH (node)
+            WHERE node.Genre Contains $filterString
+            RETURN node 
+            ORDER BY score DESC, node.IMDB_Rating DESC
+            SKIP $options.offset 
+            LIMIT $options.limit
             """
         )
     }
