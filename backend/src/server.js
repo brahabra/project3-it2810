@@ -7,9 +7,6 @@ require("dotenv").config();
 //Types for use in schema generation for Neo4J database, is fetched by neoSchema further down
 const typeDefs = gql`
     type Movie {
-        MovieIndex: String
-            @cypher (
-            statement: """CALL db.index.fulltext.queryNodes('titles')""")
         Certificate: String
         Director: String
         Genre: String
@@ -53,7 +50,7 @@ const typeDefs = gql`
         #Star4: String
     }
     type Query {
-        findMovieByTitle(searchString: String!, where: MovieWhere, options: MovieOptions!): [Movie] @cypher(
+        findMovieByTitle(searchString: String!, options: MovieOptions!): [Movie] @cypher(
             statement: """
             CALL db.index.fulltext.queryNodes(
                 'titles', $searchString+'~') 
@@ -65,7 +62,7 @@ const typeDefs = gql`
             """
         )
 
-        findMovieByGenreSortByRating(filterString: String, options: MovieOptions!): [Movie] @cypher(
+        findMovieByGenreSortByRating(filterString: String!, options: MovieOptions!): [Movie] @cypher(
             statement: """
             MATCH (n: Movie)
             WHERE n.Genre Contains $filterString
@@ -76,7 +73,7 @@ const typeDefs = gql`
             """
         )
 
-        findMovieByTitleWithGenreFilter(searchString: String, filterString: String, options: MovieOptions!): [Movie] @cypher(
+        findMovieByTitleWithGenreFilter(searchString: String!, filterString: String!, options: MovieOptions!): [Movie] @cypher(
             statement: """
             CALL db.index.fulltext.queryNodes(
                 'titles', $searchString+'~') 
@@ -91,7 +88,7 @@ const typeDefs = gql`
         )
 
         
-        findMovieByTitleWithGenreFilterSortByRating(searchString: String, filterString: String, options: MovieOptions!): [Movie] @cypher(
+        findMovieByTitleWithGenreFilterSortByRating(searchString: String!, filterString: String!, options: MovieOptions!): [Movie] @cypher(
             statement: """
             CALL db.index.fulltext.queryNodes(
                 'titles', $searchString+'~') 
