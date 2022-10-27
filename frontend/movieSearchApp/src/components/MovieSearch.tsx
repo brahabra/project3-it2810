@@ -6,32 +6,52 @@ import GetAllMovies from "./GetAllMovies";
 import SearchByGenre from "./SearchByGenre";
 import SearchByTitleAndGenre from "./SearchByTitleAndGenre";
 import SearchByTitleAndGenreSorted from "./SearchByTitleAndGenreSorted";
-
+import FilterGenre from "./FilterGenre";
+import SortByAttribute from "./SortByAttribute";
 
 function MovieSearch() {
   const [title, setTitle] = useState<string>("");
-  const [filter, setFilter] = useState<string>("War");
+  const [genre, setGenre] = useState<string>("");
   const [sorting, setSorting] = useState<string>("");
-  const [sortingDirection, setDirection] = useState<string>("")
+  const [sortingDirection, setSortingDirection] = useState<string>("");
 
-  function Child() {
-    if (title && !filter && !sorting) {
-      return <SearchByTitle title={title} setTitle={setTitle} />
-    } else if (!title && filter && !sorting) {
-      return <SearchByGenre title={title} filter={filter} setTitle={setTitle} />
-    } else if (title && filter && sorting) {
-      return <SearchByTitleAndGenreSorted title={title} filter={filter} setTitle={setTitle} />
-    } else if (title && filter && !sorting) {
-      return <SearchByTitleAndGenre title={title} filter={filter} setTitle={setTitle} />
+  function setQuery() {
+    if (title && !genre && !sorting) {
+      return <SearchByTitle title={title} setTitle={setTitle} />;
+    } else if (!title && genre && !sorting) {
+      return <SearchByGenre title={title} genre={genre} setTitle={setTitle} />;
+    } else if (title && genre && sorting) {
+      return (
+        <SearchByTitleAndGenreSorted
+          title={title}
+          genre={genre}
+          setTitle={setTitle}
+        />
+      );
+    } else if (title && genre && !sorting) {
+      return (
+        <SearchByTitleAndGenre
+          title={title}
+          genre={genre}
+          setTitle={setTitle}
+        />
+      );
     } else {
-      return <GetAllMovies title={title} setTitle={setTitle} />
+      return <GetAllMovies title={title} setTitle={setTitle} />;
     }
   }
 
   return (
     <div>
       <SearchBar title={title} setTitle={setTitle} />
-      {Child()}
+      <FilterGenre genre={genre} setGenre={setGenre} />
+      <SortByAttribute
+        sorting={sorting}
+        setSorting={setSorting}
+        sortingDirection={sortingDirection}
+        setSortingDirection={setSortingDirection}
+      />
+      {setQuery()}
     </div>
   );
 }

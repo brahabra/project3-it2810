@@ -1,0 +1,7 @@
+.sortingOptions {
+    width: 45vw;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}

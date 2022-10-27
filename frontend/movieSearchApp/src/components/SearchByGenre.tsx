@@ -4,22 +4,23 @@ import { IExtendedMovie } from "../interfaces/IMovie";
 import { useState } from "react";
 import { DisplayMovies } from "./DisplayMovies";
 import { Pagination } from "./Pagination";
+import { PAGE_OPTIONS } from "../enum";
 
 interface Props {
   title: string,
-  filter: string;
+  genre: string;
   setTitle: (value: string) => void;
 }
 
 function SearchByGenre(props: Props) {
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const PAGE_SIZE = 10;
+  const PAGE_SIZE = PAGE_OPTIONS.PAGE_SIZE;
   let loadedMoviesList: IExtendedMovie[] = [];
 
   const { loading, error, data } = useQuery(GET_MOVIES_BY_GENRE_SORT_BY_RATING, {
     variables: {
-      filterString: props.filter,
+      filterString: props.genre,
       options: {
         offset: currentPage * PAGE_SIZE,
         limit: PAGE_SIZE,
