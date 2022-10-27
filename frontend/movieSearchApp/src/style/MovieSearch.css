@@ -1,4 +1,14 @@
-.test{
-    display: flex;
-    flex-direction: column;
+.movieList{
+    border-radius: 25px;
+    background-color: #787474;
+    border: 1px black;
+    margin: auto;
+    box-shadow: "20";
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 750px) {
+    .movieList{
+        width: 90vw;
+    }
 }

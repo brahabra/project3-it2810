@@ -1,23 +1,18 @@
-import { useEffect, useState } from "react";
-import { useQuery } from "@apollo/client";
-import { IMovie } from "../interfaces/IMovie";
-import { GET_ALL_MOVIES, GET_MOVIES_BY_GENRE_SORT_BY_RATING, GET_MOVIES_BY_TITLE, GET_MOVIES_BY_TITLE_FILTER_BY_GENRE, GET_MOVIES_BY_TITLE_FILTER_BY_GENRE_SORT_BY_RATING } from "../queries/getMovies";
+import { useState } from "react";
 import SearchBar from "./SearchBar";
 import "../style/MovieSearch.css";
-import { MovieTableComp } from "./MovieTable";
 import SearchByTitle from "./SearchByTitle";
 import GetAllMovies from "./GetAllMovies";
-import { off } from "process";
 import SearchByGenre from "./SearchByGenre";
-import { Button } from "@mui/material";
 import SearchByTitleAndGenre from "./SearchByTitleAndGenre";
 import SearchByTitleAndGenreSorted from "./SearchByTitleAndGenreSorted";
 
 
 function MovieSearch() {
   const [title, setTitle] = useState<string>("");
-  const [filter, setFilter] = useState<string>("");
-  const [sorting, setSorting] = useState<boolean>(false);
+  const [filter, setFilter] = useState<string>("War");
+  const [sorting, setSorting] = useState<string>("");
+  const [sortingDirection, setDirection] = useState<string>("")
 
   function Child() {
     if (title && !filter && !sorting) {
@@ -35,6 +30,7 @@ function MovieSearch() {
 
   return (
     <div>
+      <SearchBar title={title} setTitle={setTitle} />
       {Child()}
     </div>
   );

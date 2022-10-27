@@ -27,9 +27,7 @@
   width: 100%;
 }
 
-.pageField {
-  width: 30px;
-}
+
 
 .movieTable,
 .movieTableContainer {
@@ -45,10 +43,3 @@
   justify-content: center;
 }
 
-.pageTextField {
-  width: 100px;
-}
-
-.nextButton, .prevButton {
-  height: 56px;
-}

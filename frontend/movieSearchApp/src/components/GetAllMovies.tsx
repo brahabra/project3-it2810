@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
-import { IMovie } from "../interfaces/IMovie";
+import { IExtendedMovie } from "../interfaces/IMovie";
 import { GET_ALL_MOVIES } from "../queries/getMovies";
-import { MovieTableComp } from "./MovieTable";
-import SearchBar from "./SearchBar";
+import { DisplayMovies } from "./DisplayMovies";
+import { Pagination } from "./Pagination";
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ function GetAllMovies(props: Props) {
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
   const PAGE_SIZE = 10;
-  let loadedMoviesList: IMovie[] = [];
+  let loadedMoviesList: IExtendedMovie[] = [];
 
   const { loading, error, data } = useQuery(GET_ALL_MOVIES, {
     variables: {
@@ -31,20 +31,21 @@ function GetAllMovies(props: Props) {
 
 
   if (data) {
-    data.movies.map((movie: IMovie) => {
+    data.movies.map((movie: IExtendedMovie) => {
       loadedMoviesList.push(movie);
     })
   }
 
   return (
     <div>
-      
-      <SearchBar title={props.title} setTitle={props.setTitle} />
-      <MovieTableComp
+      <DisplayMovies
+        movieList={loadedMoviesList}
+      />
+      <Pagination
         movieList={loadedMoviesList}
         offset={offset}
-        setOffset={setOffset}
         currentPage={currentPage}
+        setOffset={setOffset}
         setCurrentPage={setCurrentPage}
       />
     </div>

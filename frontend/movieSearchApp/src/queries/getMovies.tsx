@@ -3,9 +3,22 @@ import { gql } from "@apollo/client";
 export const GET_ALL_MOVIES = gql`
   query ($options: MovieOptions!) {
     movies(options: $options) {
+      Poster_Link
       Series_Title
       Released_Year
+      Certificate
+      Runtime
+      Genre
       IMDB_Rating
+      Overview
+      Meta_score
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+      No_of_Votes
+      Gross
     }
   }
 `;
@@ -16,9 +29,22 @@ export const GET_MOVIES_BY_TITLE = gql`
       searchString: $searchString,
       options: $options)
     {
+      Poster_Link
       Series_Title
       Released_Year
+      Certificate
+      Runtime
+      Genre
       IMDB_Rating
+      Overview
+      Meta_score
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+      No_of_Votes
+      Gross
     }
   }
 `;
@@ -29,10 +55,23 @@ export const GET_MOVIES_BY_GENRE_SORT_BY_RATING = gql`
     filterString: $filterString,
     options: $options
     )
-    {
+    {      
+      Poster_Link
       Series_Title
       Released_Year
+      Certificate
+      Runtime
+      Genre
       IMDB_Rating
+      Overview
+      Meta_score
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+      No_of_Votes
+      Gross
     }
   }
 `;
@@ -46,9 +85,22 @@ export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE = gql`
     options: $options
     )
     {
+      Poster_Link
       Series_Title
       Released_Year
+      Certificate
+      Runtime
+      Genre
       IMDB_Rating
+      Overview
+      Meta_score
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+      No_of_Votes
+      Gross
     }
   }
 `;
@@ -62,9 +114,22 @@ export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE_SORT_BY_RATING = gql`
     options: $options
     )
     {
+      Poster_Link
       Series_Title
       Released_Year
+      Certificate
+      Runtime
+      Genre
       IMDB_Rating
+      Overview
+      Meta_score
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+      No_of_Votes
+      Gross
     }
   }
 `;
