@@ -24,16 +24,16 @@ const typeDefs = gql`
     Star3: String
     Star4: String
   }
+  
+  # type User {
+  #   email: String!
+  #   queries: [SearchQuery!]! @relationship(type: "SEARCHED_FOR", direction: OUT)
+  # }
 
-  type User {
-    email: String!
-    queries: [SearchQuery!]! @relationship(type: "SEARCHED_FOR", direction: OUT)
-  }
-
-  type SearchQuery {
-    user: User! @relationship(type: "SEARCHED_FOR",direction: IN)
-    Series_Title: String!
-  }
+  # type SearchQuery {
+  #   user: User! @relationship(type: "SEARCHED_FOR",direction: IN)
+  #   Series_Title: String!
+  # }
 
   type Query {
     findMovieByTitle(searchString: String, offset: Int, limit: Int): [Movie]
@@ -46,8 +46,29 @@ const typeDefs = gql`
       )
   }
 
+  type Search {
+    id: ID! @id
+    content: String!
+    creator: User! @relationship(type: "HAS_SEARCH", direction: IN)
+  }
+
+  type User {
+    id: ID! @id
+    name: String
+    searches: [Search!]! @relationship(type: "HAS_SEARCH", direction: OUT)
+  }
+
+  type CreateSearchMutationResponse {
+    searches: [Search!]!
+  }
+
+  type CreateUsersMutationResponse {
+    users: [User!]!
+  }
+
   type Mutation {
-    addSearchQuery(user: UserCreateInput!, Series_Title: String!): SearchQuery
+    createSearch(input: [SearchCreateInput!]!): CreateSearchMutationResponse!
+    createUsers(input: [UsersCreateInput!]!): CreateUsersMutationResponse!
   }
 `;
 
