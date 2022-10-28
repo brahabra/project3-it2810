@@ -4,12 +4,14 @@ import { IExtendedMovie, IMovie } from "../interfaces/IMovie";
 import { GET_ALL_MOVIES, GET_MOVIES_BY_TITLE } from "../queries/getMovies";
 import SearchBar from "./SearchBar";
 import "../style/MovieSearch.css";
-import { Box, TableSortLabel } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Pagination } from "./Pagination";
 import { E } from "../enum";
 import { DisplayMovies } from "./DisplayMovies";
+import DisplaySearches from "./DisplaySearches";
 
 function MovieSearch() {
+  const [showSearches, setShowSearches] = useState(false);
   const [title, setTitle] = useState<string>("");
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -24,7 +26,7 @@ function MovieSearch() {
   function titleIsEmpty() {
     return title == "";
   }
-  
+
   // If titleIsEmpty, load all movies. If the title is not empty, load the movies with the stirng it is searched for
   const { loading, error, data } = useQuery(
     titleIsEmpty() ? GET_ALL_MOVIES : GET_MOVIES_BY_TITLE,
@@ -56,21 +58,33 @@ function MovieSearch() {
     });
   }
 
+  const onSubmit = () => {
+    setShowSearches(!showSearches);
+  };
+
   return (
     <div>
-      <SearchBar title={title} setTitle={setTitle} />
-      <Box className="movieList">
-        <DisplayMovies
-          movieList={loadedMoviesList}
-        />
-      </Box>
-      <Pagination
-        movieList={loadedMoviesList}
-        offset={offset}
-        setOffset={setOffset}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <Button onClick={onSubmit}>
+        {showSearches ? "Hide searches" : "Show searches"}
+      </Button>
+
+      {showSearches ? (
+        <DisplaySearches />
+      ) : (
+        <>
+          <SearchBar title={title} setTitle={setTitle} />
+          <Box className="movieList">
+            <DisplayMovies movieList={loadedMoviesList} />
+          </Box>
+          <Pagination
+            movieList={loadedMoviesList}
+            offset={offset}
+            setOffset={setOffset}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </>
+      )}
     </div>
   );
 }

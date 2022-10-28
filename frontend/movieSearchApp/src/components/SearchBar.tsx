@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import "../style/SearchBar.css";
+import { useMutation } from "@apollo/client";
+import { CREATE_SEARCHES } from "../queries/createSearches";
 
 interface Props {
   title: string;
@@ -9,6 +11,7 @@ interface Props {
 
 export default function SearchBar(props: Props) {
   const [search, setSearch] = useState(props.title);
+  const [addSearch, { data, loading, error }] = useMutation(CREATE_SEARCHES);
 
   const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -16,6 +19,13 @@ export default function SearchBar(props: Props) {
 
   const onSubmit = () => {
     props.setTitle(search.trim());
+    if (search.trim()) {
+      addSearch({
+        variables: {
+          title: search,
+        },
+      });
+    }
   };
 
   const handleKeyDown = (event: any) => {

@@ -47,29 +47,29 @@ const typeDefs = gql`
   }
 
   type Search {
-    id: ID! @id
-    content: String!
-    creator: User! @relationship(type: "HAS_SEARCH", direction: IN)
+    title: String!
+#    content: String!
+#    creator: User! @relationship(type: "HAS_SEARCH", direction: IN)
   }
 
-  type User {
-    id: ID! @id
-    name: String
-    searches: [Search!]! @relationship(type: "HAS_SEARCH", direction: OUT)
-  }
+#  type User {
+#    id: ID! @id
+#    name: String
+#    searches: [Search!]! @relationship(type: "HAS_SEARCH", direction: OUT)
+#  }
 
-  type CreateSearchMutationResponse {
-    searches: [Search!]!
-  }
+#  type CreateSearchMutationResponse {
+#    searches: [Search!]!
+#  }
 
-  type CreateUsersMutationResponse {
-    users: [User!]!
-  }
+#  type CreateUsersMutationResponse {
+#    users: [User!]!
+#  }
 
-  type Mutation {
-    createSearch(input: [SearchCreateInput!]!): CreateSearchMutationResponse!
-    createUsers(input: [UsersCreateInput!]!): CreateUsersMutationResponse!
-  }
+#  type Mutation {
+#    createSearch(input: [SearchCreateInput!]!): CreateSearchMutationResponse!
+#    createUsers(input: [UsersCreateInput!]!): CreateUsersMutationResponse!
+#  }
 `;
 
 //Driver for fetching data from Neo4j database, with generic user with read priviliges
