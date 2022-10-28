@@ -1,4 +1,7 @@
-import { GET_MOVIES_BY_TITLE } from "../queries/getMovies"
+import {
+  GET_MOVIES_BY_TITLE,
+  GET_MOVIES_BY_TITLE_ASC,
+} from "../queries/getMovies";
 import { useQuery } from "@apollo/client";
 import { IExtendedMovie } from "../interfaces/IMovie";
 import { useState } from "react";
@@ -9,6 +12,7 @@ import { PAGE_OPTIONS } from "../enum";
 interface Props {
   title: string;
   setTitle: (value: string) => void;
+  sortingDirection: String;
 }
 
 function SearchByTitle(props: Props) {
@@ -17,30 +21,42 @@ function SearchByTitle(props: Props) {
   const PAGE_SIZE = PAGE_OPTIONS.PAGE_SIZE;
   let loadedMoviesList: IExtendedMovie[] = [];
 
-  const { loading, error, data } = useQuery(GET_MOVIES_BY_TITLE, {
+  function sortingDirection() {
+    if (props.sortingDirection === "ASC") {
+      return GET_MOVIES_BY_TITLE_ASC;
+    } else {
+      return GET_MOVIES_BY_TITLE;
+    }
+  }
+
+  const { loading, error, data } = useQuery(sortingDirection(), {
     variables: {
       searchString: props.title,
       options: {
         offset: currentPage * PAGE_SIZE,
         limit: PAGE_SIZE,
-      }
-    }
+      },
+    },
   });
 
   if (loading) return <p>Loading ...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   if (data) {
-    data.findMovieByTitle.forEach((movie: IExtendedMovie) => {
+    let response = [];
+    if (props.sortingDirection === "ASC") {
+      response = data.findMovieByTitleASC;
+    } else {
+      response = data.findMovieByTitleDESC;
+    }
+    response.forEach((movie: IExtendedMovie) => {
       loadedMoviesList.push(movie);
-    })
+    });
   }
 
   return (
     <div>
-      <DisplayMovies
-        movieList={loadedMoviesList}
-      />
+      <DisplayMovies movieList={loadedMoviesList} />
       <Pagination
         movieList={loadedMoviesList}
         offset={offset}
@@ -50,8 +66,6 @@ function SearchByTitle(props: Props) {
       />
     </div>
   );
-
 }
 
 export default SearchByTitle;
-

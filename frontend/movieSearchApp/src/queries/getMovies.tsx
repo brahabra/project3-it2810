@@ -19,9 +19,28 @@ export const GET_ALL_MOVIES = gql`
   }
 `;
 
+export const GET_ALL_MOVIES_FILTER_BY_GENRE = gql`
+  query ($where: MovieWhere!, $options: MovieOptions!) {
+    movies(where: $where, options: $options) {
+      Poster_Link
+      Series_Title
+      Released_Year
+      Runtime
+      Genre
+      IMDB_Rating
+      Overview
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+    }
+  }
+`;
+
 export const GET_MOVIES_BY_TITLE = gql`
-  query findMovieByTitle($searchString: String!, $options: MovieOptions!) {
-    findMovieByTitle(
+  query findMovieByTitleDESC($searchString: String!, $options: MovieOptions!) {
+    findMovieByTitleDESC(
       searchString: $searchString,
       options: $options)
     {
@@ -41,13 +60,12 @@ export const GET_MOVIES_BY_TITLE = gql`
   }
 `;
 
-export const GET_MOVIES_BY_GENRE_SORT_BY_RATING = gql`
-  query findMovieByGenreSortByRating($filterString: String!, $options: MovieOptions!) {
-    findMovieByGenreSortByRating(
-    filterString: $filterString,
-    options: $options
-    )
-    {      
+export const GET_MOVIES_BY_TITLE_ASC = gql`
+  query findMovieByTitleASC($searchString: String!, $options: MovieOptions!) {
+    findMovieByTitleASC(
+      searchString: $searchString,
+      options: $options)
+    {
       Poster_Link
       Series_Title
       Released_Year
@@ -64,10 +82,9 @@ export const GET_MOVIES_BY_GENRE_SORT_BY_RATING = gql`
   }
 `;
 
-
 export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE = gql`
   query findMovieByTitleWithGenreFilter($searchString: String!, $filterString: String!, $options: MovieOptions!) {
-    findMovieByTitleWithGenreFilter(
+    findMovieByTitleWithGenreFilterDESC(
     searchString: $searchString,
     filterString: $filterString,
     options: $options
@@ -89,10 +106,9 @@ export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE = gql`
   }
 `;
 
-
-export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE_SORT_BY_RATING = gql`
-  query findMovieByTitleWithGenreFilterSortByRating($searchString: String!, $filterString: String!, $options: MovieOptions!) {
-    findMovieByTitleWithGenreFilterSortByRating(
+export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE_ASC = gql`
+  query findMovieByTitleWithGenreFilterASC($searchString: String!, $filterString: String!, $options: MovieOptions!) {
+    findMovieByTitleWithGenreFilterASC(
     searchString: $searchString,
     filterString: $filterString,
     options: $options

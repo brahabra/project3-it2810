@@ -8,6 +8,7 @@ import { PAGE_OPTIONS } from "../enum";
 
 interface Props {
   title: string;
+  sortingDirection: string;
   setTitle: (value: string) => void;
 }
 
@@ -23,6 +24,9 @@ function GetAllMovies(props: Props) {
       options: {
         offset: currentPage * PAGE_SIZE,
         limit: PAGE_SIZE,
+        sort: {
+          "IMDB_Rating": props.sortingDirection
+        }
       }
     }
   });
@@ -32,7 +36,7 @@ function GetAllMovies(props: Props) {
 
 
   if (data) {
-    data.movies.map((movie: IExtendedMovie) => {
+    data.movies.forEach((movie: IExtendedMovie) => {
       loadedMoviesList.push(movie);
     })
   }

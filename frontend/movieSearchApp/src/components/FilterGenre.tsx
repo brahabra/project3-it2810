@@ -17,6 +17,7 @@ export default function FilterGenre(props: Props) {
     "Drama",
     "War",
     "Action",
+    "Comedy",
     "Crime",
     "History",
     "Thriller",

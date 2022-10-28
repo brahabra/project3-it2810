@@ -5,12 +5,11 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  Typography,
 } from "@mui/material";
 import "../style/SortByAttribute.css";
 
 interface Props {
-  sorting: string;
-  setSorting: (value: string) => void;
   sortingDirection: string;
   setSortingDirection: (value: string) => void;
 }
@@ -18,33 +17,19 @@ interface Props {
 export default function SortByAttribute(props: Props) {
   return (
     <div className="sortingOptions">
-      <FormControl fullWidth>
-        <InputLabel>Sort by ...</InputLabel>
-        <Select
-          value={props.sorting}
-          label="Sort options"
-          onChange={(event: SelectChangeEvent, child) =>
-            props.setSorting(event.target.value)
-          }
-        >
-          <MenuItem value={"IMDB_Rating"}>IMDB Rating</MenuItem>
-          <MenuItem value={"Series_Title"}>Title</MenuItem>
-          <MenuItem value={"Released_Year"}>Released Year</MenuItem>
-        </Select>
-      </FormControl>
+      <Typography>Sort By IMDB Rating: </Typography>
 
       <FormControl fullWidth>
-        <InputLabel>Order</InputLabel>
+        <InputLabel>Show first</InputLabel>
         <Select
           value={props.sortingDirection}
           label="Order"
           onChange={(event: SelectChangeEvent, child) =>
             props.setSortingDirection(event.target.value)
           }
-        >
-          <MenuItem value={"Ascending"}>Ascending</MenuItem>
-          <MenuItem value={"Deafult"}>Deafult</MenuItem>
-          <MenuItem value={"Descending"}>Descending</MenuItem>
+        >          
+          <MenuItem value={"DESC"}>Highest Rating</MenuItem>
+          <MenuItem value={"ASC"}>Lowest Rating</MenuItem>
         </Select>
       </FormControl>
     </div>

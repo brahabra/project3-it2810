@@ -50,53 +50,53 @@ const typeDefs = gql`
         #Star4: String
     }
     type Query {
-        findMovieByTitle(searchString: String!, options: MovieOptions!): [Movie] @cypher(
+        findMovieByTitleDESC(searchString: String!, options: MovieOptions!): [Movie] @cypher(
             statement: """
             CALL db.index.fulltext.queryNodes(
                 'titles', $searchString+'~') 
             YIELD node, score
-            RETURN node 
-            ORDER BY score DESC
-            SKIP $options.offset 
-            LIMIT $options.limit
-            """
-        )
-
-        findMovieByGenreSortByRating(filterString: String!, options: MovieOptions!): [Movie] @cypher(
-            statement: """
-            MATCH (n: Movie)
-            WHERE n.Genre Contains $filterString
-            RETURN n
-            ORDER BY n.IMDB_Rating
-            SKIP $options.offset 
-            LIMIT $options.limit
-            """
-        )
-
-        findMovieByTitleWithGenreFilter(searchString: String!, filterString: String!, options: MovieOptions!): [Movie] @cypher(
-            statement: """
-            CALL db.index.fulltext.queryNodes(
-                'titles', $searchString+'~') 
-            YIELD node, score
-            MATCH (node)
-            WHERE node.Genre Contains $filterString
-            RETURN node 
-            ORDER BY score DESC
-            SKIP $options.offset 
-            LIMIT $options.limit
-            """
-        )
-
-        
-        findMovieByTitleWithGenreFilterSortByRating(searchString: String!, filterString: String!, options: MovieOptions!): [Movie] @cypher(
-            statement: """
-            CALL db.index.fulltext.queryNodes(
-                'titles', $searchString+'~') 
-            YIELD node, score
-            MATCH (node)
-            WHERE node.Genre Contains $filterString
             RETURN node 
             ORDER BY score DESC, node.IMDB_Rating DESC
+            SKIP $options.offset 
+            LIMIT $options.limit
+            """
+        )
+
+        findMovieByTitleASC(searchString: String!, options: MovieOptions!): [Movie] @cypher(
+            statement: """
+            CALL db.index.fulltext.queryNodes(
+                'titles', $searchString+'~') 
+            YIELD node, score
+            RETURN node 
+            ORDER BY score DESC, node.IMDB_Rating ASC
+            SKIP $options.offset 
+            LIMIT $options.limit
+            """
+        )
+
+        findMovieByTitleWithGenreFilterDESC(searchString: String!, filterString: String!, options: MovieOptions!): [Movie] @cypher(
+            statement: """
+            CALL db.index.fulltext.queryNodes(
+                'titles', $searchString+'~') 
+            YIELD node, score
+            MATCH (node)
+            WHERE node.Genre CONTAINS $filterString
+            RETURN node 
+            ORDER BY score DESC, node.IMDB_Rating DESC
+            SKIP $options.offset 
+            LIMIT $options.limit
+            """
+        )
+
+        findMovieByTitleWithGenreFilterASC(searchString: String!, filterString: String!, options: MovieOptions!): [Movie] @cypher(
+            statement: """
+            CALL db.index.fulltext.queryNodes(
+                'titles', $searchString+'~') 
+            YIELD node, score
+            MATCH (node)
+            WHERE node.Genre CONTAINS $filterString
+            RETURN node 
+            ORDER BY score DESC, node.IMDB_Rating ASC
             SKIP $options.offset 
             LIMIT $options.limit
             """
