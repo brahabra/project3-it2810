@@ -1,8 +1,8 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useReactiveVar } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { IExtendedMovie, IMovie } from "../interfaces/IMovie";
 import { GET_ALL_MOVIES, GET_MOVIES_BY_TITLE } from "../queries/getMovies";
-import SearchBar from "./SearchBar";
+import SearchBar, { titleSearchedFor } from "./SearchBar";
 import "../style/MovieSearch.css";
 import { Box, Button } from "@mui/material";
 import { Pagination } from "./Pagination";
@@ -12,11 +12,11 @@ import DisplaySearches from "./DisplaySearches";
 
 function MovieSearch() {
   const [showSearches, setShowSearches] = useState(false);
-  const [title, setTitle] = useState<string>("");
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
   const PAGE_SIZE = 5;
   let loadedMoviesList: IExtendedMovie[] = [];
+  const title = useReactiveVar(titleSearchedFor);
 
   // If a new title is searched for, set the the current page to zero.
   useEffect(() => {
@@ -67,12 +67,11 @@ function MovieSearch() {
       <Button onClick={onSubmit}>
         {showSearches ? "Hide searches" : "Show searches"}
       </Button>
-
       {showSearches ? (
         <DisplaySearches />
       ) : (
         <>
-          <SearchBar title={title} setTitle={setTitle} />
+          <SearchBar />
           <Box className="movieList">
             <DisplayMovies movieList={loadedMoviesList} />
           </Box>

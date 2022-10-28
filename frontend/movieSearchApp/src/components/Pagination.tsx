@@ -2,6 +2,7 @@ import { Button, TextField } from "@mui/material";
 import { E } from "../enum";
 import { IExtendedMovie } from "../interfaces/IMovie";
 import "../style/Pagination.css";
+import { titleSearchedFor } from "./SearchBar";
 
 
 interface Props {

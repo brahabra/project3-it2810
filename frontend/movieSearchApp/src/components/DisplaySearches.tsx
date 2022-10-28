@@ -1,10 +1,19 @@
-import { useQuery } from "@apollo/client";
-import React, { useEffect } from "react";
+import { useLazyQuery, useQuery, useReactiveVar } from "@apollo/client";
+import { formControlClasses } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { E } from "../enum";
 import { GET_SEARCHES } from "../queries/getSearches";
+import MovieSearch from "./MovieSearch";
+import { titleSearchedFor } from "./SearchBar";
 
 export default function DisplaySearches() {
-  const { data, loading, error } = useQuery(GET_SEARCHES)
+  const { data, loading, error } = useQuery(GET_SEARCHES);
+  const title = useReactiveVar(titleSearchedFor);
+  useEffect(() => {
+    
+  }, [title])
+  
+
   /*
   const { data, loading, error } = useQuery(GET_SEARCHES, {
     variables: {
@@ -19,8 +28,8 @@ export default function DisplaySearches() {
 
   return (
     <div>
-      <h3>10 last searches</h3>
-      {data.searches.map(({ title }: { title: string }) => (
+      <h3>{E.SEARCHES_SIZE} last searches</h3>
+      {data?.searches.map(({ title }: { title: string }) => (
         <p>{title}</p>
       ))}
     </div>
