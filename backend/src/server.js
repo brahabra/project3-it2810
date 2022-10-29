@@ -1,7 +1,7 @@
 const { Neo4jGraphQL } = require("@neo4j/graphql");
 const { ApolloServer, gql } = require("apollo-server");
 const neo4j = require("neo4j-driver");
-require("dotenv").config();
+require("dotenv").config(); 
 
 //Sourcecode gotten from ""
 //Types for use in schema generation for Neo4J database, is fetched by neoSchema further down
