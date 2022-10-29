@@ -29,7 +29,7 @@ export const MovieComponent = (props: Props) => {
     <Box ref={ref} className="movieBox">
       <div onClick={handleHeaderClick}>
         <div onClick={showExtendedInfo}>
-          {showMore != true ? (
+          {!showMore ? (
             <div className="shortMovie">
               <h2>
                 {props.movie.Series_Title} ({props.movie.Released_Year}){" "}

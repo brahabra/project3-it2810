@@ -64,11 +64,27 @@ function MovieSearch() {
 
   return (
     <div>
-      <Button onClick={onSubmit}>
-        {showSearches ? "Hide searches" : "Show searches"}
-      </Button>
+      <Box display="flex" justifyContent="center">
+        <Button
+          color="secondary"
+          className="showSearchesButton"
+          variant="contained"
+          onClick={onSubmit}
+        >
+          {showSearches ? "Hide searches" : "Show searches"}
+        </Button>
+      </Box>
       {showSearches ? (
-        <DisplaySearches />
+        <>
+          <DisplaySearches />
+          <Pagination
+            movieList={loadedMoviesList}
+            offset={offset}
+            setOffset={setOffset}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </>
       ) : (
         <>
           <SearchBar />

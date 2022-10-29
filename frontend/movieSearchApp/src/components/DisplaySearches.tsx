@@ -5,14 +5,12 @@ import { E } from "../enum";
 import { GET_SEARCHES } from "../queries/getSearches";
 import MovieSearch from "./MovieSearch";
 import { titleSearchedFor } from "./SearchBar";
+import "../style/DisplaySearches.css";
 
 export default function DisplaySearches() {
   const { data, loading, error } = useQuery(GET_SEARCHES);
   const title = useReactiveVar(titleSearchedFor);
-  useEffect(() => {
-    
-  }, [title])
-  
+  useEffect(() => {}, [title]);
 
   /*
   const { data, loading, error } = useQuery(GET_SEARCHES, {
@@ -27,8 +25,8 @@ export default function DisplaySearches() {
   if (error) return <p>Could not load searches ...</p>;
 
   return (
-    <div>
-      <h3>{E.SEARCHES_SIZE} last searches</h3>
+    <div className="displaySearchesContainer">
+      <h2 className="displaySearchesHeader">{E.SEARCHES_SIZE} last searches</h2>
       {data?.searches.map(({ title }: { title: string }) => (
         <p>{title}</p>
       ))}
