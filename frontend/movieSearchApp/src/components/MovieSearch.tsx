@@ -75,7 +75,7 @@ function MovieSearch() {
         </Button>
       </Box>
       {showSearches ? (
-        <DisplaySearches  />
+        <DisplaySearches showSearches={showSearches} setShowSearches={setShowSearches} />
       ) : (
         <>
           <SearchBar />

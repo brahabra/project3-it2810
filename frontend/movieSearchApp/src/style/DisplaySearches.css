@@ -6,6 +6,6 @@
   align-items: center;
 }
 
-.displaySearchesHeader {
-  
+.searchText {
+  cursor: pointer;
 }

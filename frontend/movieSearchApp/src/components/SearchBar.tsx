@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TextField, Button, IconButton } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import "../style/SearchBar.css";
 import { makeVar, useMutation, useReactiveVar } from "@apollo/client";
 import { CREATE_SEARCHES } from "../queries/createSearches";
@@ -11,7 +11,7 @@ export const titleSearchedFor = makeVar<string>("");
 export default function SearchBar() {
   const [search, setSearch] = useState(titleSearchedFor());
   const [addSearch, { data, loading, error }] = useMutation(CREATE_SEARCHES, {
-    refetchQueries: [{ query: GET_SEARCHES }],
+    refetchQueries: [{ query: GET_SEARCHES }, "getSearches"],
   });
 
   const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
