@@ -1,27 +1,25 @@
 import { useLazyQuery, useQuery, useReactiveVar } from "@apollo/client";
-import { formControlClasses } from "@mui/material";
+import { formControlClasses, IconButton } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useState } from "react";
-import { E } from "../enum";
+import { ENUM } from "../enum";
 import { GET_SEARCHES } from "../queries/getSearches";
 import MovieSearch from "./MovieSearch";
 import { titleSearchedFor } from "./SearchBar";
 import "../style/DisplaySearches.css";
 
 interface Props {
-  showSearches: boolean;
   setShowSearches: (value: boolean) => void;
 }
 
 export default function DisplaySearches(props: Props) {
-  //const { data, loading, error } = useQuery(GET_SEARCHES);
   const title = useReactiveVar(titleSearchedFor);
-  useEffect(() => {}, [title]);
 
   // Not working with search log... the word searched for is not showing instant in search log if we use this query with variables
   const { data, loading, error } = useQuery(GET_SEARCHES, {
     variables: {
       offset: 0,
-      limit: E.SEARCHES_SIZE,
+      limit: ENUM.SEARCHES_SIZE,
     },
   });
 
@@ -33,17 +31,20 @@ export default function DisplaySearches(props: Props) {
   if (loading) return <p>Loading data ...</p>;
   if (error) return <p>Could not load searches ...</p>;
 
+  
+
   return (
     <div className="displaySearchesContainer">
-      <h2 className="displaySearchesHeader">{E.SEARCHES_SIZE} last searches</h2>
+      <h2 className="displaySearchesHeader">Showing the last {ENUM.SEARCHES_SIZE} searches</h2>
       {data.searches.length > 0 ? (
         data?.searches.map(({ title }: { title: string }) => (
-          <p
+          <IconButton
             className="searchText"
             onClick={() => handleSearchWordClick(title)}
           >
+            <SearchIcon />
             {title}
-          </p>
+          </IconButton>
         ))
       ) : (
         <p>No searches registered!</p>

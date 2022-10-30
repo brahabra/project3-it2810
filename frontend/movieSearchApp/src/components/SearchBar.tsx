@@ -18,7 +18,7 @@ export default function SearchBar() {
     setSearch(event.target.value);
   };
 
-  const onSubmit = () => {
+  function addToSearchLog() {
     titleSearchedFor(search.trim());
     if (search.trim()) {
       addSearch({
@@ -27,11 +27,15 @@ export default function SearchBar() {
         },
       });
     }
+  }
+
+  const onSubmit = () => {
+    addToSearchLog();
   };
 
   const handleKeyDown = (event: any) => {
     if (event.key === "Enter") {
-      titleSearchedFor(search.trim());
+      addToSearchLog();
     }
   };
 

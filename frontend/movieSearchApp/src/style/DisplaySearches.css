@@ -8,4 +8,5 @@
 
 .searchText {
   cursor: pointer;
+  color: white !important;
 }

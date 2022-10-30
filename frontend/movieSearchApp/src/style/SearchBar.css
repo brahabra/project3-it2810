@@ -17,7 +17,7 @@
 
 .searchButton{
   margin: auto;
-  /*border-radius: 15px !important;*/
+  border-radius: 0px !important;
   width: 40%;
   margin-top: 20px;
   height: 56px;

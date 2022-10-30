@@ -4,9 +4,10 @@ import { IExtendedMovie } from "../interfaces/IMovie";
 import { GET_ALL_MOVIES, GET_MOVIES_BY_TITLE } from "../queries/getMovies";
 import SearchBar, { titleSearchedFor } from "./SearchBar";
 import "../style/MovieSearch.css";
-import { Box, Button } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
+import HistoryIcon from '@mui/icons-material/History';
 import { Pagination } from "./Pagination";
-import { E } from "../enum";
+import { ENUM } from "../enum";
 import { DisplayMovies } from "./DisplayMovies";
 import DisplaySearches from "./DisplaySearches";
 
@@ -33,13 +34,13 @@ function MovieSearch() {
     {
       variables: titleIsEmpty()
         ? {
-            offset: currentPage * E.PAGE_SIZE,
-            limit: E.PAGE_SIZE,
+            offset: currentPage * ENUM.PAGE_SIZE,
+            limit: ENUM.PAGE_SIZE,
           }
         : {
             searchString: title,
-            offset: currentPage * E.PAGE_SIZE,
-            limit: E.PAGE_SIZE,
+            offset: currentPage * ENUM.PAGE_SIZE,
+            limit: ENUM.PAGE_SIZE,
           },
     }
   );
@@ -65,17 +66,13 @@ function MovieSearch() {
   return (
     <div className="movieSearchContainer">
       <Box display="flex" justifyContent="center">
-        <Button
-          color="primary"
-          className="showSearchesButton"
-          variant="contained"
-          onClick={onSubmit}
-        >
-          {showSearches ? "Hide search log" : "Show search log"}
-        </Button>
+        <IconButton color="primary" className="showSearchesButton" onClick={onSubmit}>
+        <HistoryIcon />
+        {showSearches ? "Hide search log" : "Show search log"}
+      </IconButton>
       </Box>
       {showSearches ? (
-        <DisplaySearches showSearches={showSearches} setShowSearches={setShowSearches} />
+        <DisplaySearches setShowSearches={setShowSearches} />
       ) : (
         <>
           <SearchBar />

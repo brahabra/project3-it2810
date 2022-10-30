@@ -1,10 +1,12 @@
 .showSearchesButton {
     /*border-radius: 25px !important;*/
     width: 75%;
-    margin-bottom: 10px !important;
+    margin-bottom: 20px !important;
     margin-top: 30px !important;
-    height: 50px;
-
+    height: 70px;
+    border-radius: 20px !important;
+    background-color: #42a5f5 !important;
+    color: white !important;
 }
 
 .moiveSearchContainer {
