@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, IconButton } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 import "../style/SearchBar.css";
 import { makeVar, useMutation, useReactiveVar } from "@apollo/client";
 import { CREATE_SEARCHES } from "../queries/createSearches";
@@ -42,9 +43,10 @@ export default function SearchBar() {
         onKeyDown={handleKeyDown}
         value={search}
       />
-      <Button className="searchButton" variant="contained" onClick={onSubmit}>
+      <IconButton className="searchButton" onClick={onSubmit}>
+        <SearchIcon />
         Search
-      </Button>
+      </IconButton>
     </div>
   );
 }

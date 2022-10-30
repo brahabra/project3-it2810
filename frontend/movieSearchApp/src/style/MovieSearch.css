@@ -6,6 +6,10 @@
     height: 50px;
 }
 
+.loadingOrError {
+    color: white;
+}
+
 @media only screen and (max-width: 750px) {
     .movieList{
         width: 90vw;

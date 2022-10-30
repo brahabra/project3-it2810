@@ -44,8 +44,8 @@ function MovieSearch() {
     }
   );
 
-  if (loading) return <p>Loading data ...</p>;
-  if (error) return <p>Could not load movies ...</p>;
+  if (loading) return <p className="loadingOrError">Loading data ...</p>;
+  if (error) return <p className="loadingOrError">Could not load movies ...</p>;
 
   // Add the offset to the list which is showing the movies
   if (titleIsEmpty()) {
@@ -75,16 +75,7 @@ function MovieSearch() {
         </Button>
       </Box>
       {showSearches ? (
-        <>
-          <DisplaySearches />
-          <Pagination
-            movieList={loadedMoviesList}
-            offset={offset}
-            setOffset={setOffset}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </>
+          <DisplaySearches/>
       ) : (
         <>
           <SearchBar />
