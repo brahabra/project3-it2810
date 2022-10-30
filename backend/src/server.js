@@ -24,16 +24,6 @@ const typeDefs = gql`
     Star3: String
     Star4: String
   }
-  
-  # type User {
-  #   email: String!
-  #   queries: [SearchQuery!]! @relationship(type: "SEARCHED_FOR", direction: OUT)
-  # }
-
-  # type SearchQuery {
-  #   user: User! @relationship(type: "SEARCHED_FOR",direction: IN)
-  #   Series_Title: String!
-  # }
 
   type Query {
     findMovieByTitle(searchString: String, offset: Int, limit: Int): [Movie]
@@ -48,28 +38,7 @@ const typeDefs = gql`
 
   type Search {
     title: String!
-#    content: String!
-#    creator: User! @relationship(type: "HAS_SEARCH", direction: IN)
   }
-
-#  type User {
-#    id: ID! @id
-#    name: String
-#    searches: [Search!]! @relationship(type: "HAS_SEARCH", direction: OUT)
-#  }
-
-#  type CreateSearchMutationResponse {
-#    searches: [Search!]!
-#  }
-
-#  type CreateUsersMutationResponse {
-#    users: [User!]!
-#  }
-
-#  type Mutation {
-#    createSearch(input: [SearchCreateInput!]!): CreateSearchMutationResponse!
-#    createUsers(input: [UsersCreateInput!]!): CreateUsersMutationResponse!
-#  }
 `;
 
 //Driver for fetching data from Neo4j database, with generic user with read priviliges

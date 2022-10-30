@@ -1,6 +1,6 @@
 import { useQuery, useReactiveVar } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { IExtendedMovie, IMovie } from "../interfaces/IMovie";
+import { IExtendedMovie } from "../interfaces/IMovie";
 import { GET_ALL_MOVIES, GET_MOVIES_BY_TITLE } from "../queries/getMovies";
 import SearchBar, { titleSearchedFor } from "./SearchBar";
 import "../style/MovieSearch.css";
@@ -44,8 +44,8 @@ function MovieSearch() {
     }
   );
 
-  if (loading) return <p>Loading data ...</p>;
-  if (error) return <p>Could not load movies ...</p>;
+  if (loading) return <p className="feedbackText">Loading movies ...</p>;
+  if (error) return <p className="feedbackText">Could not load movies ...</p>;
 
   // Add the offset to the list which is showing the movies
   if (titleIsEmpty()) {
@@ -63,28 +63,19 @@ function MovieSearch() {
   };
 
   return (
-    <div>
+    <div className="movieSearchContainer">
       <Box display="flex" justifyContent="center">
         <Button
-          color="secondary"
+          color="primary"
           className="showSearchesButton"
           variant="contained"
           onClick={onSubmit}
         >
-          {showSearches ? "Hide searches" : "Show searches"}
+          {showSearches ? "Hide search log" : "Show search log"}
         </Button>
       </Box>
       {showSearches ? (
-        <>
-          <DisplaySearches />
-          <Pagination
-            movieList={loadedMoviesList}
-            offset={offset}
-            setOffset={setOffset}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </>
+        <DisplaySearches  />
       ) : (
         <>
           <SearchBar />

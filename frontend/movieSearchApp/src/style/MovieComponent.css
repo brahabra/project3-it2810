@@ -2,9 +2,9 @@
     border-radius: 25px;
     background-color: #E2E2E2;
     margin: auto;
-    /*border: 1px solid black;*/
+    box-shadow: 3px 3px rgb(0, 0, 0);
     margin-bottom: 15px;
-    margin-top: 15px;
+    margin-top: 5px;
     width: 75%;
     cursor: pointer;
 }
