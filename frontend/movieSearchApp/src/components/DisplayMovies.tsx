@@ -1,7 +1,4 @@
-import { TextField, Button } from "@mui/material";
-import { off } from "process";
-import { useState } from "react";
-import { IExtendedMovie, IMovie, IMovies } from "../interfaces/IMovie";
+import { IExtendedMovie, IMovies } from "../interfaces/IMovie";
 import "../style/DisplayMovies.css";
 import { MovieComponent } from "./MovieComponent";
 
@@ -23,7 +20,7 @@ export const DisplayMovies = (props: Props): JSX.Element => {
           return <MovieComponent key={movie.Poster_Link} movie={movie} />;
         })
       ) : (
-        <p>No movies matched your search!</p>
+        <p className="feedbackText">No movies matched your search!</p>
       )}
     </div>
   );

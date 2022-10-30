@@ -1,9 +1,14 @@
 .showSearchesButton {
-    border-radius: 25px !important;
+    /*border-radius: 25px !important;*/
     width: 75%;
     margin-bottom: 10px !important;
     margin-top: 30px !important;
     height: 50px;
+
+}
+
+.moiveSearchContainer {
+    background-color: yellow;
 }
 
 .loadingOrError {
@@ -15,3 +20,7 @@
         width: 90vw;
     }
 }
+
+.feedbackText {
+    color: white;
+  }
