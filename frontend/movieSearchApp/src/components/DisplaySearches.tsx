@@ -1,12 +1,11 @@
 import { useLazyQuery, useQuery, useReactiveVar } from "@apollo/client";
 import { formControlClasses, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import React, { useEffect, useState } from "react";
-import { ENUM } from "../enum";
 import { GET_SEARCHES } from "../queries/getSearches";
 import MovieSearch from "./MovieSearch";
 import { titleSearchedFor } from "./SearchBar";
 import "../style/DisplaySearches.css";
+import { PAGE_OPTIONS } from "../enum";
 
 interface Props {
   setShowSearches: (value: boolean) => void;
@@ -19,7 +18,7 @@ export default function DisplaySearches(props: Props) {
   const { data, loading, error } = useQuery(GET_SEARCHES, {
     variables: {
       offset: 0,
-      limit: ENUM.SEARCHES_SIZE,
+      limit: PAGE_OPTIONS.SEARCHES_SIZE,
     },
   });
 
@@ -35,7 +34,7 @@ export default function DisplaySearches(props: Props) {
 
   return (
     <div className="displaySearchesContainer">
-      <h2 className="displaySearchesHeader">Showing the last {ENUM.SEARCHES_SIZE} searches</h2>
+      <h2 className="displaySearchesHeader">Showing the last {PAGE_OPTIONS.SEARCHES_SIZE} searches</h2>
       {data.searches.length > 0 ? (
         data?.searches.map(({ title }: { title: string }) => (
           <IconButton

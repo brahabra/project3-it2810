@@ -1,4 +1,4 @@
-.sortingOptions {
+.sortingContainer {
     width: 45vw;
     margin: auto;
     display: flex;
@@ -28,4 +28,12 @@
   
   .tooltip:hover .tooltiptext {
     visibility: visible;
+  }
+
+  .sortingOptions {
+    background-color: white;
+  }
+
+  .sortText {
+    color: white
   }

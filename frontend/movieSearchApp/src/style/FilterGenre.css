@@ -1,5 +1,11 @@
-.filterOptions {
+.filterContainer {
     width: 45vw;
     margin: auto;
     padding: 10px;
+ 
+}
+
+
+.filterOptions {
+    background-color: white;
 }

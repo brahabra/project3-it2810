@@ -8,6 +8,9 @@ import SearchByTitleAndGenre from "./SearchByTitleAndGenre";
 import FilterGenre from "./FilterGenre";
 import SortByAttribute from "./SortByAttribute";
 import { useReactiveVar } from "@apollo/client";
+import DisplaySearches from "./DisplaySearches";
+import HistoryIcon from "@mui/icons-material/History";
+import { Box, IconButton } from "@mui/material";
 
 function MovieSearch() {
   const [showSearches, setShowSearches] = useState(false);
@@ -17,17 +20,10 @@ function MovieSearch() {
 
   function setQuery() {
     if (title && !genre) {
-      return (
-        <SearchByTitle
-          sortingDirection={sortingDirection}
-        />
-      );
+      return <SearchByTitle sortingDirection={sortingDirection} />;
     } else if (!title && genre) {
       return (
-        <SearchByGenre
-          sortingDirection={sortingDirection}
-          genre={genre}
-        />
+        <SearchByGenre sortingDirection={sortingDirection} genre={genre} />
       );
     } else if (title && genre) {
       return (
@@ -37,11 +33,7 @@ function MovieSearch() {
         />
       );
     } else {
-      return (
-        <GetAllMovies
-          sortingDirection={sortingDirection}
-        />
-      );
+      return <GetAllMovies sortingDirection={sortingDirection} />;
     }
   }
 
@@ -50,14 +42,30 @@ function MovieSearch() {
   };
 
   return (
-    <div>
-      <SearchBar />
-      <FilterGenre genre={genre} setGenre={setGenre} />
-      <SortByAttribute
-        sortingDirection={sortingDirection}
-        setSortingDirection={setSortingDirection}
-      />
-      {setQuery()}
+    <div className="movieSearchContainer">
+      <Box display="flex" justifyContent="center">
+        <IconButton
+          color="primary"
+          className="showSearchesButton"
+          onClick={onSubmit}
+        >
+          <HistoryIcon />
+          {showSearches ? "Hide search log" : "Show search log"}
+        </IconButton>
+      </Box>
+      {showSearches ? (
+        <DisplaySearches setShowSearches={setShowSearches} />
+      ) : (
+        <div>
+          <SearchBar />
+          <FilterGenre genre={genre} setGenre={setGenre} />
+          <SortByAttribute
+            sortingDirection={sortingDirection}
+            setSortingDirection={setSortingDirection}
+          />
+          {setQuery()}
+        </div>
+      )}
     </div>
   );
 }

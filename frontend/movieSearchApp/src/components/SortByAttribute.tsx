@@ -18,10 +18,10 @@ interface Props {
 
 export default function SortByAttribute(props: Props) {
   return (
-    <div className="sortingOptions">
-      <Typography>Sort By IMDB Rating:
+    <div className="sortingContainer">
+      <Typography className="sortText">Sort By IMDB Rating:
       </Typography>
-      <FormControl fullWidth>
+      <FormControl fullWidth className="sortingOptions">
         <InputLabel>Show first</InputLabel>
         <Select
           value={props.sortingDirection}

@@ -28,8 +28,8 @@ export default function FilterGenre(props: Props) {
   ];
 
   return (
-    <div className="filterOptions">
-      <FormControl fullWidth>
+    <div className="filterContainer">
+      <FormControl fullWidth className="filterOptions">
         <InputLabel>Genre</InputLabel>
         <Select
           value={props.genre}
@@ -38,7 +38,7 @@ export default function FilterGenre(props: Props) {
             props.setGenre(event.target.value)
           }
         >
-          {/* TODO: Legge til støtte for default verdi? */}
+          <MenuItem value={""}>None (default)</MenuItem>
           {genresList.map((genre, id) => (
             <MenuItem key={id} value={genre}>
               {genre}

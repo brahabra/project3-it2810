@@ -11,7 +11,10 @@ export const titleSearchedFor = makeVar<string>("");
 export default function SearchBar() {
   const [search, setSearch] = useState(titleSearchedFor());
   const [addSearch, { data, loading, error }] = useMutation(CREATE_SEARCHES, {
-    refetchQueries: [{ query: GET_SEARCHES }, "getSearches"],
+    refetchQueries: [
+      {query: GET_SEARCHES},
+      "getSearches"
+    ],
   });
 
   const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {

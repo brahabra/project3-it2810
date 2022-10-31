@@ -45,7 +45,7 @@ export const MovieComponent = (props: Props) => {
           ) : (
             <div className="extendedMovie">
               <div className="moviePicture">
-                <img src={props.movie.Poster_Link} alt="Picture of movie" />
+                <img src={props.movie.Poster_Link} alt="Poster of movie" />
               </div>
               <div className="movieText">
                 <h2>

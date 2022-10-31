@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { PAGE_OPTIONSNUM } from "../enum";
+import { PAGE_OPTIONS } from "../enum";
 import { IExtendedMovie } from "../interfaces/IMovie";
 import "../style/Pagination.css";
 
