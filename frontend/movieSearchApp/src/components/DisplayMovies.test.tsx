@@ -12,30 +12,36 @@ const mocks = [
     request: {
       query: GET_ALL_MOVIES,
       variables: {
-        offset: 0,
-        limit: 5,
+        options: {
+          offset: 0,
+          limit: 5,
+          sort: {
+            "IMDB_Rating": "DESC"
+          }
+        }
       },
     },
     result: {
       data: {
-        movies: {
-          Poster_Link: "poster_link",
-          Series_Title: "movie",
-          Released_Year: "Released_Year",
-          Certificate: "Certificate",
-          Runtime: "Runtime",
-          Genre: "Horror",
-          IMDB_Rating: "10",
-          Overview: "Overview",
-          Meta_score: "8",
-          Director: "Director",
-          Star1: "Star1",
-          Star2: "Star2",
-          Star3: "Star3",
-          Star4: "Star4",
-          No_of_Votes: "300",
-          Gross: "What",
-        },
+        movies: [{
+            Poster_Link: "poster_link",
+            Series_Title: "movie",
+            Released_Year: "Released_Year",
+            Certificate: "Certificate",
+            Runtime: "Runtime",
+            Genre: "Horror",
+            IMDB_Rating: "10",
+            Overview: "Overview",
+            Meta_score: "8",
+            Director: "Director",
+            Star1: "Star1",
+            Star2: "Star2",
+            Star3: "Star3",
+            Star4: "Star4",
+            No_of_Votes: "300",
+            Gross: "What",
+          }
+        ],
       },
     },
   },
@@ -44,24 +50,16 @@ const mocks = [
 afterEach(cleanup);
 
 it("renders", async () => {
-  render(
+  const {container} = render(
     <React.StrictMode>
       <MockedProvider mocks={mocks} addTypename={false}>
-        <TestComp />
+        <MovieSearch />
       </MockedProvider>
     </React.StrictMode>
   );
   expect(await screen.findByText("Loading data ...")).toBeInTheDocument();
-  // const displayMovies = within(getByClassName("MovieSearch"))
-  // eslint-disable-next-line testing-library/no-debugging-utils
+  expect(await screen.findByText(/movie/)).toBeInTheDocument();
+
   screen.logTestingPlaygroundURL()
-  expect(await screen.findByText("movie")).toBeInTheDocument();
-  // debug single element
-  //eslint-disable-next-line testing-library/no-debugging-utils
-  //screen.debug(screen.getAllByText('movie'))  
-  // log entire document to testing-playground
-    //eslint-disable-next-line testing-library/no-debugging-utils
-  screen.logTestingPlaygroundURL()
-  //screen.debug();
   //expect(await screen.findByText("Could not load movies ...")).toBeInTheDocument();
 });
