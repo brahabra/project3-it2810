@@ -1,75 +1,71 @@
-import { useQuery } from "@apollo/client";
-import { Box, TableSortLabel } from "@mui/material";
-import { useEffect, useState } from "react";
-import { E } from "../enum";
-import { IExtendedMovie, IMovie } from "../interfaces/IMovie";
-import { GET_ALL_MOVIES, GET_MOVIES_BY_TITLE } from "../queries/getMovies";
+import { useState } from "react";
+import SearchBar, { titleSearchedFor } from "./SearchBar";
 import "../style/MovieSearch.css";
-import { DisplayMovies } from "./DisplayMovies";
-import { Pagination } from "./Pagination";
-import SearchBar from "./SearchBar";
+import SearchByTitle from "./SearchByTitle";
+import GetAllMovies from "./GetAllMovies";
+import SearchByGenre from "./SearchByGenre";
+import SearchByTitleAndGenre from "./SearchByTitleAndGenre";
+import FilterGenre from "./FilterGenre";
+import SortByAttribute from "./SortByAttribute";
+import { useReactiveVar } from "@apollo/client";
+import DisplaySearches from "./DisplaySearches";
+import HistoryIcon from "@mui/icons-material/History";
+import { Box, IconButton } from "@mui/material";
 
 function MovieSearch() {
-  const [title, setTitle] = useState<string>("");
-  const [offset, setOffset] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState(0);
-  const PAGE_SIZE = 5;
-  let loadedMoviesList: IExtendedMovie[] = [];
+  const [showSearches, setShowSearches] = useState(false);
+  const [genre, setGenre] = useState<string>("");
+  const [sortingDirection, setSortingDirection] = useState<string>("DESC");
+  const title = useReactiveVar(titleSearchedFor);
 
-  // If a new title is searched for, set the the current page to zero.
-  useEffect(() => {
-    setCurrentPage(0);
-  }, [title]);
-
-  function titleIsEmpty() {
-    return title == "";
-  }
-
-  // If titleIsEmpty, load all movies. If the title is not empty, load the movies with the stirng it is searched for
-
-  const { loading, error, data } = useQuery(
-    titleIsEmpty() ? GET_ALL_MOVIES : GET_MOVIES_BY_TITLE,
-    {
-      variables: titleIsEmpty()
-        ? {
-            offset: currentPage * E.PAGE_SIZE,
-            limit: E.PAGE_SIZE,
-          }
-        : {
-            searchString: title,
-            offset: currentPage * E.PAGE_SIZE,
-            limit: E.PAGE_SIZE,
-          },
+  function setQuery() {
+    if (title && !genre) {
+      return <SearchByTitle sortingDirection={sortingDirection} />;
+    } else if (!title && genre) {
+      return (
+        <SearchByGenre sortingDirection={sortingDirection} genre={genre} />
+      );
+    } else if (title && genre) {
+      return (
+        <SearchByTitleAndGenre
+          genre={genre}
+          sortingDirection={sortingDirection}
+        />
+      );
+    } else {
+      return <GetAllMovies sortingDirection={sortingDirection} />;
     }
-  );
-
-  if (loading) return <p>Loading data ...</p>;
-  if (error) return <p>Could not load movies ...</p>;
-
-  // Add the offset to the list which is showing the movies
-  if (titleIsEmpty()) {
-    data.movies.map((movie: IExtendedMovie) => {
-      loadedMoviesList.push(movie);
-    });
-  } else {
-    data.findMovieByTitle.map((movie: IExtendedMovie) => {
-      loadedMoviesList.push(movie);
-    });
   }
+
+  const onSubmit = () => {
+    setShowSearches(!showSearches);
+  };
 
   return (
-    <div>
-      <SearchBar title={title} setTitle={setTitle} />
-      <Box className="movieList">
-        <DisplayMovies movieList={loadedMoviesList} />
+    <div className="movieSearchContainer">
+      <Box display="flex" justifyContent="center">
+        <IconButton
+          color="primary"
+          className="showSearchesButton"
+          onClick={onSubmit}
+        >
+          <HistoryIcon />
+          {showSearches ? "Hide search log" : "Show search log"}
+        </IconButton>
       </Box>
-      <Pagination
-        movieList={loadedMoviesList}
-        offset={offset}
-        setOffset={setOffset}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      {showSearches ? (
+        <DisplaySearches setShowSearches={setShowSearches} />
+      ) : (
+        <div>
+          <SearchBar />
+          <FilterGenre genre={genre} setGenre={setGenre} />
+          <SortByAttribute
+            sortingDirection={sortingDirection}
+            setSortingDirection={setSortingDirection}
+          />
+          {setQuery()}
+        </div>
+      )}
     </div>
   );
 }

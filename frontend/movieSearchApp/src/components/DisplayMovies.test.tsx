@@ -1,7 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import React from "react";
-import { E } from "../enum";
 import { GET_ALL_MOVIES } from "../queries/getMovies";
 import MovieSearch from "./MovieSearch";
 import TestComp from "./testFile";
@@ -48,7 +47,7 @@ it("renders", async () => {
   render(
     <React.StrictMode>
       <MockedProvider mocks={mocks} addTypename={false}>
-        <MovieSearch />
+        <TestComp />
       </MockedProvider>
     </React.StrictMode>
   );
@@ -56,9 +55,8 @@ it("renders", async () => {
   // const displayMovies = within(getByClassName("MovieSearch"))
   // eslint-disable-next-line testing-library/no-debugging-utils
   screen.logTestingPlaygroundURL()
-
-  await screen.findByText("movie");
-// debug single element
+  expect(await screen.findByText("movie")).toBeInTheDocument();
+  // debug single element
   //eslint-disable-next-line testing-library/no-debugging-utils
   //screen.debug(screen.getAllByText('movie'))  
   // log entire document to testing-playground

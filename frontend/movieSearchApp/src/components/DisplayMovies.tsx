@@ -1,7 +1,4 @@
-import { TextField, Button } from "@mui/material";
-import { off } from "process";
-import { useState } from "react";
-import { IExtendedMovie, IMovie, IMovies } from "../interfaces/IMovie";
+import { IExtendedMovie, IMovies } from "../interfaces/IMovie";
 import "../style/DisplayMovies.css";
 import { MovieComponent } from "./MovieComponent";
 
@@ -19,11 +16,11 @@ export const DisplayMovies = (props: Props): JSX.Element => {
   return (
     <div className="movieTableContainer">
       {props.movieList.length > 0 ? (
-        props.movieList.map((movie: IExtendedMovie) => {
-          return <MovieComponent key={movie.Poster_Link} movie={movie} />;
+        props.movieList.map((movie: IExtendedMovie, id) => {
+          return <MovieComponent key={id} movie={movie} />;
         })
       ) : (
-        <p>No movies matched your search!</p>
+        <p className="feedbackText">No movies matched your search!</p>
       )}
     </div>
   );

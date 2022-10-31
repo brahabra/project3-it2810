@@ -1,8 +1,7 @@
-import { Button, TextField } from "@mui/material";
-import { E } from "../enum";
+import { Button } from "@mui/material";
+import { PAGE_OPTIONS } from "../enum";
 import { IExtendedMovie } from "../interfaces/IMovie";
 import "../style/Pagination.css";
-
 
 interface Props {
   movieList: IExtendedMovie[];
@@ -36,9 +35,9 @@ export const Pagination = (props: Props) => {
           window.scrollTo(0, 0);
         }}
         variant="contained"
-        //bug: if the last page contains 10 movies, the button is still possible to click on. The user can then open a empty page.
-        // not sure how we can fix this. Could be solved if we knew the size of the data list
-        disabled={props.movieList.length < E.PAGE_SIZE ? true : false}
+        disabled={
+          props.movieList.length < PAGE_OPTIONS.PAGE_SIZE ? true : false
+        }
       >
         Next page &rarr;
       </Button>

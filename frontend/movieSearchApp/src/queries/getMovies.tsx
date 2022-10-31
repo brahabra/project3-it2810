@@ -1,51 +1,131 @@
 import { gql } from "@apollo/client";
 
-export const GET_MOVIES_BY_TITLE = gql`
-  query FindMovieByTitle($searchString: String, $offset: Int, $limit: Int) {
-    findMovieByTitle(
-      searchString: $searchString
-      offset: $offset
-      limit: $limit
-    ) {
+export const GET_ALL_MOVIES = gql`
+  query ($options: MovieOptions!) {
+    movies(options: $options) {
       Poster_Link
       Series_Title
       Released_Year
-      Certificate
       Runtime
       Genre
       IMDB_Rating
       Overview
-      Meta_score
       Director
       Star1
       Star2
       Star3
       Star4
-      No_of_Votes
-      Gross
     }
   }
 `;
 
-export const GET_ALL_MOVIES = gql`
-  query ($offset: Int, $limit: Int) {
-    movies(options: { offset: $offset, limit: $limit }) {
+export const GET_ALL_MOVIES_FILTER_BY_GENRE = gql`
+  query ($where: MovieWhere!, $options: MovieOptions!) {
+    movies(where: $where, options: $options) {
       Poster_Link
       Series_Title
       Released_Year
-      Certificate
       Runtime
       Genre
       IMDB_Rating
       Overview
-      Meta_score
       Director
       Star1
       Star2
       Star3
       Star4
-      No_of_Votes
-      Gross
+    }
+  }
+`;
+
+export const GET_MOVIES_BY_TITLE = gql`
+  query findMovieByTitleDESC($searchString: String!, $options: MovieOptions!) {
+    findMovieByTitleDESC(
+      searchString: $searchString,
+      options: $options)
+    {
+      Poster_Link
+      Series_Title
+      Released_Year
+      Runtime
+      Genre
+      IMDB_Rating
+      Overview
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+    }
+  }
+`;
+
+export const GET_MOVIES_BY_TITLE_ASC = gql`
+  query findMovieByTitleASC($searchString: String!, $options: MovieOptions!) {
+    findMovieByTitleASC(
+      searchString: $searchString,
+      options: $options)
+    {
+      Poster_Link
+      Series_Title
+      Released_Year
+      Runtime
+      Genre
+      IMDB_Rating
+      Overview
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+    }
+  }
+`;
+
+export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE = gql`
+  query findMovieByTitleWithGenreFilter($searchString: String!, $filterString: String!, $options: MovieOptions!) {
+    findMovieByTitleWithGenreFilterDESC(
+    searchString: $searchString,
+    filterString: $filterString,
+    options: $options
+    )
+    {
+      Poster_Link
+      Series_Title
+      Released_Year
+      Runtime
+      Genre
+      IMDB_Rating
+      Overview
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
+    }
+  }
+`;
+
+export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE_ASC = gql`
+  query findMovieByTitleWithGenreFilterASC($searchString: String!, $filterString: String!, $options: MovieOptions!) {
+    findMovieByTitleWithGenreFilterASC(
+    searchString: $searchString,
+    filterString: $filterString,
+    options: $options
+    )
+    {
+      Poster_Link
+      Series_Title
+      Released_Year
+      Runtime
+      Genre
+      IMDB_Rating
+      Overview
+      Director
+      Star1
+      Star2
+      Star3
+      Star4
     }
   }
 `;
