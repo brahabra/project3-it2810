@@ -5,18 +5,28 @@ import "../style/SearchBar.css";
 import { makeVar, useMutation, useReactiveVar } from "@apollo/client";
 import { CREATE_SEARCHES } from "../queries/createSearches";
 import { GET_SEARCHES } from "../queries/getSearches";
+import { PAGE_OPTIONS } from "../enum";
 
 export const titleSearchedFor = makeVar<string>("");
 
 export default function SearchBar() {
   const [search, setSearch] = useState(titleSearchedFor());
+  const d = new Date();
   const [addSearch, { data, loading, error }] = useMutation(CREATE_SEARCHES, {
     refetchQueries: [
-      {query: GET_SEARCHES},
+      {query: GET_SEARCHES, variables: {
+        options: {
+          offset: 0,
+          limit: PAGE_OPTIONS.SEARCHES_SIZE,
+          sort: {
+            "created": "DESC"
+          }
+        }
+      }},
       "getSearches"
     ],
   });
-
+  
   const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
@@ -27,6 +37,7 @@ export default function SearchBar() {
       addSearch({
         variables: {
           title: search,
+          created: d.toISOString()
         },
       });
     }

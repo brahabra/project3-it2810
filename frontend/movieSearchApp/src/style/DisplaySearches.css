@@ -10,3 +10,7 @@
   cursor: pointer;
   color: white !important;
 }
+
+.dateText {
+  font-size: small;
+}
