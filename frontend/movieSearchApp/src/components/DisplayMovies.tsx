@@ -16,8 +16,8 @@ export const DisplayMovies = (props: Props): JSX.Element => {
   return (
     <div className="movieTableContainer">
       {props.movieList.length > 0 ? (
-        props.movieList.map((movie: IExtendedMovie) => {
-          return <MovieComponent key={movie.Poster_Link} movie={movie} />;
+        props.movieList.map((movie: IExtendedMovie, id) => {
+          return <MovieComponent key={id} movie={movie} />;
         })
       ) : (
         <p className="feedbackText">No movies matched your search!</p>

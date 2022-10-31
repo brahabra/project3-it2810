@@ -25,19 +25,77 @@ const typeDefs = gql`
     Star4: String
   }
 
+  type Search {
+    title: String!
+  }
+
   type Query {
-    findMovieByTitle(searchString: String, offset: Int, limit: Int): [Movie]
+    findMovieByTitleDESC(
+      searchString: String!
+      options: MovieOptions!
+    ): [Movie]
       @cypher(
         statement: """
         CALL db.index.fulltext.queryNodes(
             'titles', $searchString+'~')
-        YIELD node RETURN node SKIP $offset LIMIT $limit
+        YIELD node, score
+        RETURN node
+        ORDER BY score DESC, node.IMDB_Rating DESC
+        SKIP $options.offset
+        LIMIT $options.limit
         """
       )
-  }
 
-  type Search {
-    title: String!
+    findMovieByTitleASC(searchString: String!, options: MovieOptions!): [Movie]
+      @cypher(
+        statement: """
+        CALL db.index.fulltext.queryNodes(
+            'titles', $searchString+'~')
+        YIELD node, score
+        RETURN node
+        ORDER BY score DESC, node.IMDB_Rating ASC
+        SKIP $options.offset
+        LIMIT $options.limit
+        """
+      )
+
+    findMovieByTitleWithGenreFilterDESC(
+      searchString: String!
+      filterString: String!
+      options: MovieOptions!
+    ): [Movie]
+      @cypher(
+        statement: """
+        CALL db.index.fulltext.queryNodes(
+            'titles', $searchString+'~')
+        YIELD node, score
+        MATCH (node)
+        WHERE node.Genre CONTAINS $filterString
+        RETURN node
+        ORDER BY score DESC, node.IMDB_Rating DESC
+        SKIP $options.offset
+        LIMIT $options.limit
+        """
+      )
+
+    findMovieByTitleWithGenreFilterASC(
+      searchString: String!
+      filterString: String!
+      options: MovieOptions!
+    ): [Movie]
+      @cypher(
+        statement: """
+        CALL db.index.fulltext.queryNodes(
+            'titles', $searchString+'~')
+        YIELD node, score
+        MATCH (node)
+        WHERE node.Genre CONTAINS $filterString
+        RETURN node
+        ORDER BY score DESC, node.IMDB_Rating ASC
+        SKIP $options.offset
+        LIMIT $options.limit
+        """
+      )
   }
 `;
 
