@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
 import "../style/SortByAttribute.css";
 
 interface Props {
@@ -17,8 +19,8 @@ interface Props {
 export default function SortByAttribute(props: Props) {
   return (
     <div className="sortingOptions">
-      <Typography>Sort By IMDB Rating: </Typography>
-
+      <Typography>Sort By IMDB Rating:
+      </Typography>
       <FormControl fullWidth>
         <InputLabel>Show first</InputLabel>
         <Select
@@ -32,6 +34,9 @@ export default function SortByAttribute(props: Props) {
           <MenuItem value={"ASC"}>Lowest Rating</MenuItem>
         </Select>
       </FormControl>
+      <div className="tooltip"><InfoIcon/>
+        <span className="tooltiptext">Is always sorted by relevance first</span>
+      </div>
     </div>
   );
 }
