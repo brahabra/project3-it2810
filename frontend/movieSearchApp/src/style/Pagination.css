@@ -3,6 +3,7 @@
   width: 45vw;
   display: flex;
   flex-direction: row;
+  margin-bottom: 40px;
 }
 
 .pageText {
@@ -11,17 +12,16 @@
   font-size: larger;
   text-align: center;
   height: 56;
+  color: white;
 }
   
 .nextButton, .prevButton {
   width: 50%;
-  border-radius: 15px !important;
+  /*border-radius: 15px !important;*/
 }
- 
 
 @media only screen and (max-width: 750px) {
   .pageNavigation{
       width: 90vw;
   }
-
 }

@@ -2,7 +2,6 @@
   margin: auto;
   width: 45vw;
   margin-bottom: 20px;
-  margin-top: 50px;
   display: flex;
   flex-direction: row;
 }
@@ -11,18 +10,19 @@
   margin-left: 20px;
   text-align: center;
   margin-top: 20px;
-  border-radius: 25px !important;
+  /*border-radius: 25px !important;*/
   width: 100%;  
+  background-color: white;
 }
 
 .searchButton{
   margin: auto;
-  border-radius: 15px !important;
-  width:60%;
+  border-radius: 0px !important;
+  width: 40%;
   margin-top: 20px;
   height: 56px;
+  color: white !important;
 } 
-
 
 @media only screen and (max-width: 750px) {
   .searchBar{

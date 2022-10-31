@@ -1,0 +1,12 @@
+.displaySearchesContainer {
+  border-color: rgb(73, 160, 236);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchText {
+  cursor: pointer;
+  color: white !important;
+}
