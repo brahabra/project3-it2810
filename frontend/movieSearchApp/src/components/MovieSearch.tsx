@@ -58,11 +58,13 @@ function MovieSearch() {
       ) : (
         <div>
           <SearchBar />
-          <FilterGenre genre={genre} setGenre={setGenre} />
-          <SortByAttribute
-            sortingDirection={sortingDirection}
-            setSortingDirection={setSortingDirection}
-          />
+          <div className="filterAndSortContainer">
+            <FilterGenre genre={genre} setGenre={setGenre} />
+            <SortByAttribute
+              sortingDirection={sortingDirection}
+              setSortingDirection={setSortingDirection}
+            />
+          </div>
           {setQuery()}
         </div>
       )}

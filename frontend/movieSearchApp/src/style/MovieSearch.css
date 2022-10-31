@@ -1,17 +1,13 @@
 .showSearchesButton {
-    /*border-radius: 25px !important;*/
-    width: 75%;
-    margin-bottom: 20px !important;
+    width: 70%;
+    margin-bottom: 10px !important;
     margin-top: 30px !important;
-    height: 70px;
-    border-radius: 20px !important;
+    height: 35px;
+    border-radius: 0px !important;
     background-color: #42a5f5 !important;
     color: white !important;
 }
 
-.moiveSearchContainer {
-    background-color: yellow;
-}
 
 .loadingOrError {
     color: white;
@@ -26,3 +22,15 @@
 .feedbackText {
     color: white;
   }
+
+.filterAndSortContainer{
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+}
+
+.searchAndLogContainer {
+    display: flex;
+    flex-direction: row-reverse;
+}
