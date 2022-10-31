@@ -27,6 +27,7 @@ const typeDefs = gql`
 
   type Search {
     title: String!
+    created: DateTime!
   }
 
   type Query {
