@@ -18,7 +18,6 @@
   font-size: small;
 }
 
-
 @media only screen and (max-width: 750px) {
   .displaySearchesContainer{
       width: 90vw;

@@ -1,17 +1,11 @@
-import { IExtendedMovie, IMovies } from "../interfaces/IMovie";
+import { IExtendedMovie } from "../interfaces/IMovie";
 import "../style/DisplayMovies.css";
 import { MovieComponent } from "./MovieComponent";
-
-/**
- * @description Table component for displaying movies. Creates a list of movies and displays them.
- *
- * @param {IMovies} moviesProp
- */
 
 interface Props {
   movieList: IExtendedMovie[];
 }
-
+// DisplayMovies loads the movieList, and for each entry in the movieList, return it as a MovieComponent
 export const DisplayMovies = (props: Props): JSX.Element => {
   return (
     <div className="movieTableContainer">

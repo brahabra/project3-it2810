@@ -18,6 +18,7 @@ function MovieSearch() {
   const [sortingDirection, setSortingDirection] = useState<string>("DESC");
   const title = useReactiveVar(titleSearchedFor);
 
+  // Different queries for handling different filter/sort/search possibilities
   function setQuery() {
     if (title && !genre) {
       return <SearchByTitle sortingDirection={sortingDirection} />;
@@ -36,10 +37,13 @@ function MovieSearch() {
       return <GetAllMovies sortingDirection={sortingDirection} />;
     }
   }
-
+  //If the user clicks "Show search log", this is handled here
   const onSubmit = () => {
     setShowSearches(!showSearches);
   };
+
+  /*If showSearches is true: hide every elment except Show Search button. Show DisplaySearches component. 
+  If showSearches is false: show the page as default with searchbar, movies and filtering options.*/
 
   return (
     <div className="movieSearchContainer">

@@ -5,7 +5,6 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { NoEncryption } from "@mui/icons-material";
 
 const client = new ApolloClient({
   uri: "http://it2810-03.idi.ntnu.no:4000",

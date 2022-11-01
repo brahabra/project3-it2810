@@ -11,6 +11,7 @@ interface Props {
   sortingDirection: String;
 }
 
+// Load every movie in the database filtered by chosen genre
 function SearchByGenre(props: Props) {
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -35,6 +36,7 @@ function SearchByGenre(props: Props) {
   if (loading) return <p>Loading ...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  // Add the data loaded in to a list, then send the list as prop to DisplayMovies
   if (data) {
     data.movies.forEach((movie: IExtendedMovie) => {
       loadedMoviesList.push(movie);

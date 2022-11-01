@@ -25,11 +25,15 @@ const typeDefs = gql`
     Star4: String
   }
 
+  #Type for the search log
   type Search {
     title: String!
     created: DateTime!
   }
 
+  # Queries for handling fulltext search and searching with
+  # or without genres and with rating in descending or ascending order.
+  # The score is always sorted in descending order.
   type Query {
     findMovieByTitleDESC(
       searchString: String!

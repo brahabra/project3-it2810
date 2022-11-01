@@ -1,4 +1,4 @@
-import { useQuery, useReactiveVar } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { GET_SEARCHES } from "../queries/getSearches";
@@ -10,8 +10,8 @@ interface Props {
   setShowSearches: (value: boolean) => void;
 }
 
+// Component that displays the searches that the user have searched for
 export default function DisplaySearches(props: Props) {
-  const title = useReactiveVar(titleSearchedFor);
   const { data, loading, error } = useQuery(GET_SEARCHES, {
     variables: {
       options: {
@@ -23,7 +23,8 @@ export default function DisplaySearches(props: Props) {
       },
     },
   });
-
+  
+  // If a search word is clicked, set the word as current search word and change which components is visible
   function handleSearchWordClick(clickedSearchWord: string) {
     titleSearchedFor(clickedSearchWord);
     props.setShowSearches(false);
@@ -31,7 +32,8 @@ export default function DisplaySearches(props: Props) {
 
   if (loading) return <p>Loading data ...</p>;
   if (error) return <p>Could not load searches ...</p>;
-
+  
+  // If we have searches, view the searches. The search word and when it was searched after is showing. 
   function showSearches() {
     return data?.searches.map(
       ({ title, created }: { title: string; created: string }) => (
@@ -53,6 +55,7 @@ export default function DisplaySearches(props: Props) {
       <h2 className="displaySearchesHeader">
         Showing the last {PAGE_OPTIONS.SEARCHES_SIZE} searches
       </h2>
+      {/*If we have data, show the data. If not, show feedback to the user */}
       {data.searches.length > 0 ? (
         showSearches()
       ) : (

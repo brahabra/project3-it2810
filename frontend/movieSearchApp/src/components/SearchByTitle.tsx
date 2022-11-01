@@ -14,11 +14,11 @@ interface Props {
   sortingDirection: String;
 }
 
+// Load every movie in the database with title close to search string
 function SearchByTitle(props: Props) {
   const title = useReactiveVar(titleSearchedFor);
   const [offset, setOffset] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const PAGE_SIZE = PAGE_OPTIONS.PAGE_SIZE;
   let loadedMoviesList: IExtendedMovie[] = [];
 
   function sortingDirection() {
@@ -33,8 +33,8 @@ function SearchByTitle(props: Props) {
     variables: {
       searchString: title,
       options: {
-        offset: currentPage * PAGE_SIZE,
-        limit: PAGE_SIZE,
+        offset: currentPage * PAGE_OPTIONS.PAGE_SIZE,
+        limit: PAGE_OPTIONS.PAGE_SIZE,
       },
     },
   });
@@ -42,6 +42,7 @@ function SearchByTitle(props: Props) {
   if (loading) return <p>Loading ...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  // Add the data loaded in to a list, then send the list as prop to DisplayMovies
   if (data) {
     let response = [];
     if (props.sortingDirection === "ASC") {
