@@ -19,9 +19,7 @@ interface Props {
 export default function SortByAttribute(props: Props) {
   return (
     <div className="sortingContainer">
-      <Typography className="sortText">Sort By IMDB Rating:
-      </Typography>
-      <FormControl fullWidth className="sortingOptions">
+      <FormControl fullWidth className="sortingOptions" variant="filled">
         <InputLabel>Show first</InputLabel>
         <Select
           value={props.sortingDirection}
@@ -30,11 +28,11 @@ export default function SortByAttribute(props: Props) {
             props.setSortingDirection(event.target.value)
           }
         >          
-          <MenuItem value={"DESC"}>Highest Rating</MenuItem>
-          <MenuItem value={"ASC"}>Lowest Rating</MenuItem>
+          <MenuItem value={"DESC"}>Highest IMDB Rating</MenuItem>
+          <MenuItem value={"ASC"}>Lowest IMDB Rating</MenuItem>
         </Select>
       </FormControl>
-      <div className="tooltip"><InfoIcon/>
+      <div className="tooltip"><InfoIcon style={{ color: 'white' }}/>
         <span className="tooltiptext">Is always sorted by relevance first</span>
       </div>
     </div>

@@ -3,10 +3,11 @@
   flex-direction: column;
   margin: auto;
   width: 60vw;
-  /* height: 60vh; */
   justify-content: center;
 }
 
 .feedbackText {
   color: white;
+  margin: auto;
+  padding: 100px;
 }
