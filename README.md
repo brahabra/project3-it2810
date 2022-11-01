@@ -1,6 +1,6 @@
 # Hvordan installere og kjøre prosjektet:
 1. Åpne en ny terminal
-2. `npm i` ``
+2. `npm i`
 3. `cd backend`
 4. `npm i`
 5. `npm start` (Neo4j database må kjøre for å få data)
@@ -10,7 +10,7 @@
 9. `npm start`
 
 ### Hvordan teste prosjektet
-1. Gjør steg 1-9 i “How to install and run the project”.
+1. Gjør steg 1-9 i “Hvordan installere og kjøre prosjektet”.
 2. Åpne en ny terminal
 3. `npx cypress open`
 4. Vent for pop up og trykk E2E Testing
