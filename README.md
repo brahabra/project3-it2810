@@ -1,8 +1,26 @@
-# project3
+# Hvordan installere og kjøre prosjektet:
+1. Åpne en ny terminal
+2. `npm i` ``
+3. `cd backend`
+4. `npm i`
+5. `npm start` (Neo4j database må kjøre for å få data)
+6. Åpne en ny terminal
+7. `cd frontend/movieSearchApp`
+8. `npm i`
+9. `npm start`
 
+### Hvordan teste prosjektet
+1. Gjør steg 1-9 i “How to install and run the project”.
+2. Åpne en ny terminal
+3. `npx cypress open`
+4. Vent for pop up og trykk E2E Testing
+5. Trykk Electron
+6. Velg e2eTest
+7. Når testen er ferdig, kryss ut og gå tilbake til terminalen
+8. `cd frontend/movieSearchApp`
+9. `npm test`
 
-
-# Dokumentasjon 
+# Dokumentasjon for prosjekt 3
 
 ### GRAND-stack 
 Vi har bygd opp nettsiden vår med GRAND-stacken. Denne består av GraphQL, React med TypeScript, Apollo og Neo4j database. Datasettet vi har i databasen består av de 1000 mest populære filmene på IMDB. Backend er bygd opp med Javascript og ikke Typescript da det var lite dokumentasjon for Apollo Server med Typescript og Neo4j som database. 
