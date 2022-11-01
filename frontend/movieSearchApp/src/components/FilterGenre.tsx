@@ -29,7 +29,7 @@ export default function FilterGenre(props: Props) {
 
   return (
     <div className="filterContainer">
-      <FormControl fullWidth className="filterOptions">
+      <FormControl fullWidth className="filterOptions" variant="filled">
         <InputLabel>Genre</InputLabel>
         <Select
           value={props.genre}

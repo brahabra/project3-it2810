@@ -1,12 +1,26 @@
 .displaySearchesContainer {
-  border-color: rgb(73, 160, 236);
-  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: auto;
+  width: 60vw;
+  color: white;
 }
 
 .searchText {
   cursor: pointer;
   color: white !important;
+  border-radius: 0px !important;
+  background-color: #212F3D !important;
+}
+
+.dateText {
+  font-size: small;
+}
+
+
+@media only screen and (max-width: 750px) {
+  .displaySearchesContainer{
+      width: 90vw;
+  }
 }

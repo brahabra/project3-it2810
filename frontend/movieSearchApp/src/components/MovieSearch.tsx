@@ -43,26 +43,40 @@ function MovieSearch() {
 
   return (
     <div className="movieSearchContainer">
-      <Box display="flex" justifyContent="center">
-        <IconButton
-          color="primary"
-          className="showSearchesButton"
-          onClick={onSubmit}
-        >
-          <HistoryIcon />
-          {showSearches ? "Hide search log" : "Show search log"}
-        </IconButton>
-      </Box>
       {showSearches ? (
-        <DisplaySearches setShowSearches={setShowSearches} />
+        <>
+          <Box display="flex" justifyContent="center">
+            <IconButton
+              color="primary"
+              className="showSearchesButton"
+              onClick={onSubmit}
+            >
+              <HistoryIcon />
+              {showSearches ? "Hide search log" : "Show search log"}
+            </IconButton>
+          </Box>
+          <DisplaySearches setShowSearches={setShowSearches} />
+        </>
       ) : (
         <div>
           <SearchBar />
-          <FilterGenre genre={genre} setGenre={setGenre} />
-          <SortByAttribute
-            sortingDirection={sortingDirection}
-            setSortingDirection={setSortingDirection}
-          />
+          <div className="filterAndSortContainer">
+            <FilterGenre genre={genre} setGenre={setGenre} />
+            <SortByAttribute
+              sortingDirection={sortingDirection}
+              setSortingDirection={setSortingDirection}
+            />
+          </div>
+          <Box display="flex" justifyContent="center">
+            <IconButton
+              color="primary"
+              className="showSearchesButton"
+              onClick={onSubmit}
+            >
+              <HistoryIcon />
+              {showSearches ? "Hide search log" : "Show search log"}
+            </IconButton>
+          </Box>
           {setQuery()}
         </div>
       )}
