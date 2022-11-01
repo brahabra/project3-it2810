@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+// Query for getting all movies
 export const GET_ALL_MOVIES = gql`
   query ($options: MovieOptions!) {
     movies(options: $options) {
@@ -19,6 +20,7 @@ export const GET_ALL_MOVIES = gql`
   }
 `;
 
+// Query for getting all movies with the selected genre
 export const GET_ALL_MOVIES_FILTER_BY_GENRE = gql`
   query ($where: MovieWhere!, $options: MovieOptions!) {
     movies(where: $where, options: $options) {
@@ -38,6 +40,7 @@ export const GET_ALL_MOVIES_FILTER_BY_GENRE = gql`
   }
 `;
 
+// Query for getting movies similar to the title searched for in descending order
 export const GET_MOVIES_BY_TITLE = gql`
   query findMovieByTitleDESC($searchString: String!, $options: MovieOptions!) {
     findMovieByTitleDESC(
@@ -60,6 +63,7 @@ export const GET_MOVIES_BY_TITLE = gql`
   }
 `;
 
+// Query for getting movies similar to the title searched for in ascending order
 export const GET_MOVIES_BY_TITLE_ASC = gql`
   query findMovieByTitleASC($searchString: String!, $options: MovieOptions!) {
     findMovieByTitleASC(
@@ -82,6 +86,7 @@ export const GET_MOVIES_BY_TITLE_ASC = gql`
   }
 `;
 
+// Query for getting movies with the selected title and genre in descending order
 export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE = gql`
   query findMovieByTitleWithGenreFilter($searchString: String!, $filterString: String!, $options: MovieOptions!) {
     findMovieByTitleWithGenreFilterDESC(
@@ -106,6 +111,7 @@ export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE = gql`
   }
 `;
 
+// Query for getting movies with the selected title and genre in ascending order
 export const GET_MOVIES_BY_TITLE_FILTER_BY_GENRE_ASC = gql`
   query findMovieByTitleWithGenreFilterASC($searchString: String!, $filterString: String!, $options: MovieOptions!) {
     findMovieByTitleWithGenreFilterASC(

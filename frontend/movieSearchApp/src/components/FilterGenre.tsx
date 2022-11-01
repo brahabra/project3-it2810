@@ -12,6 +12,7 @@ interface Props {
   setGenre: (value: string) => void;
 }
 
+// Component to show genres and handle click on a genre
 export default function FilterGenre(props: Props) {
   const genresList = [
     "Drama",
@@ -30,14 +31,16 @@ export default function FilterGenre(props: Props) {
   return (
     <div className="filterContainer">
       <FormControl fullWidth className="filterOptions" variant="filled">
+        {/* Handle click on a genre */}
         <InputLabel>Genre</InputLabel>
         <Select
           value={props.genre}
           label="Genre"
-          onChange={(event: SelectChangeEvent, child) =>
+          onChange={(event: SelectChangeEvent) =>
             props.setGenre(event.target.value)
           }
         >
+           {/* Display the genres by mapping genresList */}
           <MenuItem value={""}>None (default)</MenuItem>
           {genresList.map((genre, id) => (
             <MenuItem key={id} value={genre}>

@@ -1,10 +1,9 @@
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { PAGE_OPTIONS } from "../enum";
 import { IExtendedMovie } from "../interfaces/IMovie";
 import "../style/Pagination.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { ArrowBackIos } from "@mui/icons-material";
-import { ClassNames } from "@emotion/react";
 
 interface Props {
   movieList: IExtendedMovie[];
@@ -13,10 +12,11 @@ interface Props {
   setOffset: (value: number) => void;
   setCurrentPage: (value: number) => void;
 }
-
+// Handle pagination of the movies.
 export const Pagination = (props: Props) => {
   return (
     <div className="pageNavigation">
+      {/*Handle click on previous page button, disable if first page */}
       <IconButton
         className="prevButton"
         onClick={() => {
@@ -27,9 +27,10 @@ export const Pagination = (props: Props) => {
       >
         <ArrowBackIos /> Prev page
       </IconButton>
-
+      {/*Show current page */}
       <p className="pageText">Page {props.currentPage + 1}</p>
 
+      {/*Handle click on next page button, disable if last page*/}
       <IconButton
         className="nextButton"
         onClick={() => {

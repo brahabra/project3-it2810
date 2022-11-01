@@ -1,12 +1,9 @@
-import React, { useState } from "react";
 import {
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
-  Typography,
 } from "@mui/material";
 import InfoIcon from '@mui/icons-material/Info';
 import "../style/SortByAttribute.css";
@@ -15,7 +12,7 @@ interface Props {
   sortingDirection: string;
   setSortingDirection: (value: string) => void;
 }
-
+// Component to show sorting options and handle click on a options
 export default function SortByAttribute(props: Props) {
   return (
     <div className="sortingContainer">
@@ -24,7 +21,7 @@ export default function SortByAttribute(props: Props) {
         <Select
           value={props.sortingDirection}
           label="Order"
-          onChange={(event: SelectChangeEvent, child) =>
+          onChange={(event: SelectChangeEvent) =>
             props.setSortingDirection(event.target.value)
           }
         >          

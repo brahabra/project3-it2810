@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useOutsideClick } from "../hooks/useOutsideClick";
-import { IExtendedMovie, IMovie } from "../interfaces/IMovie";
+import { IExtendedMovie } from "../interfaces/IMovie";
 import "../style/MovieComponent.css";
 
 interface Props {
@@ -14,7 +14,7 @@ export const MovieComponent = (props: Props) => {
   const handleClickOutside = () => {
     setShowMore(false);
   };
-
+  // Custom hook use to register click outside of the component 
   const ref = useOutsideClick(handleClickOutside);
 
   const handleHeaderClick = (event: any) => {
@@ -25,6 +25,7 @@ export const MovieComponent = (props: Props) => {
     setShowMore(!showMore);
   }
 
+  // When clicking the movie component, it should display more information. This is handled with the boolean "showMore"
   return (
     <Box ref={ref} className="movieBox">
       <div onClick={handleHeaderClick}>
@@ -35,9 +36,6 @@ export const MovieComponent = (props: Props) => {
                 {props.movie.Series_Title} ({props.movie.Released_Year}){" "}
                 {props.movie.IMDB_Rating}&#9733;
               </h2>
-              {/* <div className="moviePicture">
-              <img src={props.movie.Poster_Link} alt="Pictue of movie" />
-            </div> */}
               <p>
                 <strong>Description:</strong> {props.movie.Overview}
               </p>
