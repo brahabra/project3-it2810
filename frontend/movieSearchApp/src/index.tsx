@@ -5,6 +5,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { NoEncryption } from "@mui/icons-material";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/",
@@ -20,13 +21,17 @@ const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
+          "&:hover": {
+            backgroundColor: "#4C3C43"
+          },
+
           "&.Mui-disabled": {
             backgroundColor: "#2E2428",
             color: "grey",
           },
           backgroundColor: "#4C3C43",
           color: "white"        
-        },
+        },    
       },
     },
   },

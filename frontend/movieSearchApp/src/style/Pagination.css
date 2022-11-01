@@ -1,7 +1,8 @@
 .pageNavigation {
   margin: auto;
-  width: 45vw;
   display: flex;
+  width: 45vw;
+  justify-content: space-between;
   flex-direction: row;
   margin-bottom: 40px;
 }
@@ -11,12 +12,12 @@
   border-radius: 25px;
   font-size: larger;
   text-align: center;
-  height: 56;
+  height: 25px;
   color: white;
 }
   
 .nextButton, .prevButton {
-  width: 45%;
+  width: 35%;
   border-radius: 0px !important;
 }
 
