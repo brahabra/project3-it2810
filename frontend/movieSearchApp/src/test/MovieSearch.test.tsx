@@ -66,7 +66,7 @@ const error =
 
 afterEach(cleanup);
 
-it("renders", async () => {
+it("renders MovieSearch correctly", async () => {
   render(
     <React.StrictMode>
       <MockedProvider mocks={mocks} addTypename={false}>
@@ -78,7 +78,7 @@ it("renders", async () => {
   expect(await screen.findByText(/movie/)).toBeInTheDocument();
 });
 
-it("renders error", async () => {
+it("renders error on MovieSearch when send error", async () => {
   render(
     <React.StrictMode>
       <MockedProvider mocks={[error]} addTypename={false}>
@@ -90,7 +90,7 @@ it("renders error", async () => {
   expect(await screen.findByText("Could not load movies ...")).toBeInTheDocument();
 });
 
-it("renders correctly", async () => {
+it("renders correctly and matches snapshot", async () => {
   const tree = ReactTestRenderer.create(
     <React.StrictMode>
       <MockedProvider mocks={mocks} addTypename={false}>

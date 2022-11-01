@@ -51,7 +51,7 @@ const error =
 
 afterEach(cleanup);
 
-it("renders", async () => {
+it("renders DisplaySearches correctly", async () => {
   const setShowSearches = jest.fn();
   render(
     <React.StrictMode>
@@ -64,7 +64,7 @@ it("renders", async () => {
   expect(await screen.findByText("The")).toBeInTheDocument();
 });
 
-it("renders error", async () => {
+it("renders error on DisplaySearches when send error", async () => {
   const setShowSearches = jest.fn();
   render(
     <React.StrictMode>
@@ -77,7 +77,7 @@ it("renders error", async () => {
   expect(await screen.findByText("Could not load searches ...")).toBeInTheDocument();
 });
 
-it("renders correctly", async () => {
+it("renders correctly and matches snapshot", async () => {
   const setShowSearches = jest.fn();
   const tree = ReactTestRenderer.create(
     <React.StrictMode>
