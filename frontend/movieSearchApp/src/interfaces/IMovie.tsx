@@ -1,7 +1,7 @@
 export interface IMovie {
-  IMDB_Rating: String;
-  Released_Year: String;
-  Series_Title: String;
+  IMDB_Rating: string;
+  Released_Year: string;
+  Series_Title: string;
 }
 
 export interface IMovies {
@@ -9,17 +9,17 @@ export interface IMovies {
 }
 
 export interface IExtendedMovie extends IMovie {
-  Certificate: String;
-  Director: String;
-  Genre: String;
-  Gross: String;
-  Meta_score: String;
-  No_of_Votes: String;
-  Overview: String;
+  Certificate: string;
+  Director: string;
+  Genre: string;
+  Gross: string;
+  Meta_score: string;
+  No_of_Votes: string;
+  Overview: string;
   Poster_Link: string;
-  Runtime: String;
-  Star1: String;
-  Star2: String;
-  Star3: String;
-  Star4: String;
+  Runtime: string;
+  Star1: string;
+  Star2: string;
+  Star3: string;
+  Star4: string;
 }
