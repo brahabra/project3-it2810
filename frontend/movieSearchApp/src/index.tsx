@@ -8,7 +8,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { NoEncryption } from "@mui/icons-material";
 
 const client = new ApolloClient({
-  uri: "http://it2810-03.idi.ntnu.no:4000",
+  uri: "http://localhost:4000",
   cache: new InMemoryCache(),
 });
 
