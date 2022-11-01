@@ -1,6 +1,7 @@
 .searchBar {
   margin: auto;
-  width: 70%;
+  margin-top: 20px;
+  width: 75%;
   display: flex;
   flex-direction: row;
 }
@@ -20,6 +21,6 @@
   margin-left: 20px !important;
   height: 56px;
   color: white !important;
-  background-color: #42a5f5 !important;
+  background-color: #cd6155 !important;
 } 
 
