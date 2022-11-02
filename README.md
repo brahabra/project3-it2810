@@ -76,3 +76,10 @@ Hele poenget med Graphql er at man skal kunne hente spesifikk data og ikke hente
 Vi har brukt Git og Gitlab under utviklingen av nettsiden. Alle commits er linket opp mot #issue, som igjen er koblet til en branch for issuet. Hver commit starter med hvilken issue den er knyttet til. Slik er det lett å få oversikt over hvilke commits som gjelder hvilke issues. 
 
 Ved merge requests er det aldri personen som starter merge requesten som godkjenner. Merge requesten ses over og godkjennes av en eller flere andre gruppemedlemmer. Dette gjør vi for å sikre at en merge request bidrar med kvalitet, og at man ikke pusher inn kode som ikke virker.
+
+### Bilder av nettsiden
+
+![alt text](img/img1.png)
+![alt text](img/img2.png)
+![alt text](img/img3.png)
+![alt text](img/img4.png)
